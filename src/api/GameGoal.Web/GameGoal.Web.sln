@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGoal.Web", "GameGoal.Web\GameGoal.Web.csproj", "{B5CCB04A-8EA8-4538-86EB-EEB3A5198692}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGoal.Data", "GameGoal.Data\GameGoal.Data.csproj", "{80481F92-D3A5-4F38-80B7-801A5EE24E18}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5CCB04A-8EA8-4538-86EB-EEB3A5198692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5CCB04A-8EA8-4538-86EB-EEB3A5198692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5CCB04A-8EA8-4538-86EB-EEB3A5198692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5CCB04A-8EA8-4538-86EB-EEB3A5198692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80481F92-D3A5-4F38-80B7-801A5EE24E18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80481F92-D3A5-4F38-80B7-801A5EE24E18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80481F92-D3A5-4F38-80B7-801A5EE24E18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80481F92-D3A5-4F38-80B7-801A5EE24E18}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33EABF98-0FFE-4DD3-94FC-D3073DDABCD6}
+	EndGlobalSection
+EndGlobal
