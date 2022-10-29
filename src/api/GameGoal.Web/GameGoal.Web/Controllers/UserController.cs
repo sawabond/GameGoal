@@ -105,5 +105,7 @@ namespace GameGoal.Web.Controllers
 
             return Ok(userDto);
         }
+
+        public async Task<IActionResult> GetHormonalState() => throw new NotImplementedException();
     }
 }
