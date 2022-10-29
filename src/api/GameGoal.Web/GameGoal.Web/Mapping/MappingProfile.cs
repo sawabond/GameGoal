@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using GameGoal.Data.Entities;
+using GameGoal.Web.RequestModels;
+using GameGoal.Web.ViewModels;
 
 namespace GameGoal.Web.Mapping
 {
@@ -6,7 +9,10 @@ namespace GameGoal.Web.Mapping
     {
         public MappingProfile()
         {
+            CreateMap<AppUser, UserViewModel>();
 
+            CreateMap<RegisterUserRequestModel, AppUser>();
+            CreateMap<LoginUserRequestModel, AppUser>();
         }
     }
 }

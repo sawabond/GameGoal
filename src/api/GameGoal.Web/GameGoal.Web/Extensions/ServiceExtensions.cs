@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
 using GameGoal.Data;
 using GameGoal.Data.Entities;
+using GameGoal.Web.Constants;
 using GameGoal.Web.Mapping;
+using GameGoal.Web.Services;
+using GameGoal.Web.Services.Abstractions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -14,7 +18,7 @@ namespace GameGoal.Web.Extensions
     {
         public static IServiceCollection ProvideIdentity(this IServiceCollection services)
         {
-            //services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddIdentityCore<AppUser>(opt =>
             {
@@ -43,37 +47,37 @@ namespace GameGoal.Web.Extensions
             return services;
         }
 
-        //public static IServiceCollection AddBearerAuthentication(this IServiceCollection services)
-        //{
-        //    var jwtOptions = services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>().Value;
+        public static IServiceCollection AddBearerAuthentication(this IServiceCollection services, IConfiguration config)
+        {
+            var jwtTokenKey = config[ApplicationSectionConstants.JwtTokenKey];
 
-        //    var tokenValidationParameters = new TokenValidationParameters
-        //    {
-        //        ValidateIssuerSigningKey = true,
-        //        IssuerSigningKey = new SymmetricSecurityKey(jwtOptions.TokenKey.ToByteArray()),
-        //        ValidateIssuer = false,
-        //        ValidateAudience = false,
-        //        RequireExpirationTime = false,
-        //        ValidateLifetime = true
-        //    };
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(jwtTokenKey.ToByteArray()),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                RequireExpirationTime = false,
+                ValidateLifetime = true
+            };
 
-        //    services.AddSingleton(tokenValidationParameters);
+            services.AddSingleton(tokenValidationParameters);
 
-        //    services
-        //        .AddAuthentication(options =>
-        //        {
-        //            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        //            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        //            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        //        })
-        //        .AddJwtBearer(options =>
-        //        {
-        //            options.SaveToken = true;
-        //            options.TokenValidationParameters = tokenValidationParameters;
-        //        });
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = tokenValidationParameters;
+                });
 
-        //    return services;
-        //}
+            return services;
+        }
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
