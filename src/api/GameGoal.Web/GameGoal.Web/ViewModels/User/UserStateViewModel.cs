@@ -2,7 +2,7 @@
 
 namespace GameGoal.Web.ViewModels.User
 {
-    public sealed class UserHormonalStateViewModel
+    public sealed class UserStateViewModel
     {
         public int Id { get; set; }
 

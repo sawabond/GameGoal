@@ -7,6 +7,12 @@ namespace GameGoal.Web.RequestModels.Goal
         [Range(0, 100)]
         public int Progression { get; set; }
 
+        [Range(0, 100)]
+        public int Complexity { get; set; }
+
+        [Range(0, 5)]
+        public int Priority { get; set; }
+
         [MaxLength(100)]
         public string Name { get; set; }
 

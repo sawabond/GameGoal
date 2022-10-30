@@ -62,9 +62,9 @@ namespace GameGoal.Data.Repositories
             return await _userManager.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task UpdateAsync(AppUser user)
+        public async Task<IdentityResult> UpdateAsync(AppUser user)
         {
-            await _userManager.UpdateAsync(user);
+            return await _userManager.UpdateAsync(user);
         }
 
         public void RemoveUserById(int id)

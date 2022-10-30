@@ -32,8 +32,8 @@ namespace GameGoal.Web.Services
                     Goals = new List<Goal>()
                 };
 
-                user.Goals.Add(new Goal { Name = "Gain muscles" });
-                user.Goals.Add(new Goal { Name = "Become a programmer" });
+                user.Goals.Add(new Goal { Name = "Gain muscles", Priority = 30, Complexity = 30 });
+                user.Goals.Add(new Goal { Name = "Become a programmer", Priority = 80, Complexity = 80 });
 
                 await _uow.UserRepository.CreateUserAsync(user, "Pa$$w0rd");
             }

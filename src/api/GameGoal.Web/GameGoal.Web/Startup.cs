@@ -30,6 +30,7 @@ namespace GameGoal.Web
             services.AddControllers();
 
             services.AddScoped<ISeeder, Seeder>();
+            services.AddScoped<IGoalPrioritizer, GoalPrioritizer>();
 
             services.AddBearerAuthentication(Configuration);
 

@@ -19,7 +19,7 @@ namespace GameGoal.Data.Interfaces
 
         public Task<AppUser> FindAsync(int id);
 
-        public Task UpdateAsync(AppUser user);
+        public Task<IdentityResult> UpdateAsync(AppUser user);
 
         public Task<ICollection<string>> GetUserRoles(AppUser user);
 

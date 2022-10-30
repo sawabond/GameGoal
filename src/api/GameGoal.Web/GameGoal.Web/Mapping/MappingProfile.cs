@@ -14,10 +14,11 @@ namespace GameGoal.Web.Mapping
             // AppUser
 
             CreateMap<AppUser, UserViewModel>();
-            CreateMap<AppUser, UserHormonalStateViewModel>();
+            CreateMap<AppUser, UserStateViewModel>();
 
             CreateMap<RegisterUserRequestModel, AppUser>();
             CreateMap<LoginUserRequestModel, AppUser>();
+            CreateMap<UpdateUserStateRequest, AppUser>();
 
             // Goal
 

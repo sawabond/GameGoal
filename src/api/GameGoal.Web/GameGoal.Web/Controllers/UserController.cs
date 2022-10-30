@@ -105,16 +105,33 @@ namespace GameGoal.Web.Controllers
             return Ok(userDto);
         }
 
-        [HttpPost("state")]
+        [HttpGet("state")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UserHormonalStateViewModel>> GetHormonalState()
+        public async Task<ActionResult<UserStateViewModel>> GetHormonalState()
         {
             var currentUser = await _uow.UserRepository.FindAsync(GetUserId());
 
             return currentUser is not null
-                ? Ok(_mapper.Map<UserHormonalStateViewModel>(currentUser))
-                : BadRequest("Could not get hormonal state of the current user");
+                ? Ok(_mapper.Map<UserStateViewModel>(currentUser))
+                : BadRequest("Could not get the state of the user");
+        }
+
+        [HttpPatch("state")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<UserStateViewModel>> UpdateHormonalState(
+            [FromBody] UpdateUserStateRequest updateHormonalStateRequest)
+        {
+            var currentUser = await _uow.UserRepository.FindAsync(GetUserId());
+
+            _mapper.Map(updateHormonalStateRequest, currentUser);
+
+            var identityResult = await _uow.UserRepository.UpdateAsync(currentUser);
+
+            return identityResult.Succeeded
+                ? Ok(_mapper.Map<UserStateViewModel>(currentUser))
+                : BadRequest("Could not update the state of the user: " + string.Join(", ", identityResult.Errors));
         }
     }
 }
