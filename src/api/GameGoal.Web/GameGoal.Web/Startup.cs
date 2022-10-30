@@ -1,6 +1,8 @@
 ﻿using GameGoal.Data;
 using GameGoal.Data.Interfaces;
 using GameGoal.Web.Extensions;
+using GameGoal.Web.Services;
+using GameGoal.Web.Services.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameGoal.Web
@@ -26,6 +28,8 @@ namespace GameGoal.Web
             services.ProvideIdentity();
             services.AddAutoMapping();
             services.AddControllers();
+
+            services.AddScoped<ISeeder, Seeder>();
 
             services.AddBearerAuthentication(Configuration);
 

@@ -1,10 +1,19 @@
-﻿namespace GameGoal.Web
+﻿using GameGoal.Web.Services.Abstractions;
+
+namespace GameGoal.Web
 {
     public class Program
     {
         public static async Task Main(string[] args)
         {
             var build = CreateHostBuilder(args).Build();
+
+            await build.Services
+                .CreateScope()
+                .ServiceProvider
+                .GetRequiredService<ISeeder>()
+                .SeedIfNeeded();
+
             build.Run();
         }
 
