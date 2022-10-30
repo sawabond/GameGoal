@@ -17,11 +17,14 @@ namespace GameGoal.Data
 
             UserRepository = new UserRepository(userManager, context);
             SignInManager = new SignInManager(signInManager);
+            GoalRepository = new GoalRepository(_context);
         }
 
-        public IUserRepository UserRepository { get; private set; }
+        public IUserRepository UserRepository { get; }
 
-        public ISignInManager SignInManager { get; private set; }
+        public ISignInManager SignInManager { get; }
+
+        public IGoalRepository GoalRepository { get; }
 
         public async Task<bool> ConfirmAsync()
         {

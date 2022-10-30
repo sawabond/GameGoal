@@ -1,4 +1,4 @@
-﻿namespace GameGoal.Web.RequestModels
+﻿namespace GameGoal.Web.RequestModels.User
 {
     public class RegisterUserRequestModel
     {

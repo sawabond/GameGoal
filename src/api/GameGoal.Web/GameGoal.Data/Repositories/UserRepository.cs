@@ -73,5 +73,15 @@ namespace GameGoal.Data.Repositories
 
             _context.Remove(user);
         }
+
+        public async Task<AppUser> GetUserWithGoalsById(int id)
+        {
+            var user = await _context.Users
+                .Include(u => u.Goals)
+                .Where(u => u.Id == id)
+                .FirstOrDefaultAsync();
+
+            return user;
+        }
     }
 }

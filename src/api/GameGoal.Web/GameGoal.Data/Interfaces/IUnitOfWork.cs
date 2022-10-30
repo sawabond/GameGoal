@@ -6,6 +6,8 @@
 
         ISignInManager SignInManager { get; }
 
+        IGoalRepository GoalRepository { get; }
+
         Task<bool> ConfirmAsync();
     }
 }

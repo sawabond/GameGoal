@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GameGoal.Data.Entities;
 using GameGoal.Data.Interfaces;
-using GameGoal.Web.RequestModels;
+using GameGoal.Web.RequestModels.User;
 using GameGoal.Web.Services.Abstractions;
 using GameGoal.Web.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;

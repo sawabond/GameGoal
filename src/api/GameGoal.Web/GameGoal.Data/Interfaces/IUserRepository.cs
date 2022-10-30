@@ -9,6 +9,8 @@ namespace GameGoal.Data.Interfaces
 
         public Task<AppUser> GetUserByEmailAsync(string email);
 
+        public Task<AppUser> GetUserWithGoalsById(int id);
+
         public Task<IEnumerable<AppUser>> GetUsersAsync();
 
         public Task<IdentityResult> CreateUserAsync(AppUser appUser, string password);
