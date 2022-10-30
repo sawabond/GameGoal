@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GameGoal.Web.ViewModels
+namespace GameGoal.Web.ViewModels.User
 {
-    public sealed class UserViewModel
+    public sealed class UserHormonalStateViewModel
     {
+        public int Id { get; set; }
+
         public string UserName { get; set; }
-
-        public string Gender { get; set; }
-
-        public string Token { get; set; }
 
         [Range(0, 100)]
         public int Health { get; set; }

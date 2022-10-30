@@ -5,8 +5,7 @@ namespace GameGoal.Web.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
-    [ApiController]
-    public sealed class GoalController : ControllerBase
+    public sealed class GoalController : GameGoalControllerBase
     {
         public GoalController()
         {

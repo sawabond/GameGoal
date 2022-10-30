@@ -3,7 +3,7 @@ using GameGoal.Data.Entities;
 using GameGoal.Data.Interfaces;
 using GameGoal.Web.RequestModels;
 using GameGoal.Web.Services.Abstractions;
-using GameGoal.Web.ViewModels;
+using GameGoal.Web.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,8 +11,7 @@ namespace GameGoal.Web.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
-    [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : GameGoalControllerBase
     {
         private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
@@ -106,6 +105,16 @@ namespace GameGoal.Web.Controllers
             return Ok(userDto);
         }
 
-        public async Task<IActionResult> GetHormonalState() => throw new NotImplementedException();
+        [HttpPost("state")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<UserHormonalStateViewModel>> GetHormonalState()
+        {
+            var currentUser = await _uow.UserRepository.FindAsync(GetUserId());
+
+            return currentUser is not null
+                ? Ok(_mapper.Map<UserHormonalStateViewModel>(currentUser))
+                : BadRequest("Could not get hormonal state of the current user");
+        }
     }
 }
