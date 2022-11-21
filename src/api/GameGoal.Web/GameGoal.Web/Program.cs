@@ -1,4 +1,4 @@
-﻿using GameGoal.Web.Services.Abstractions;
+﻿using Infrastructure.Services.Abstractions;
 
 namespace GameGoal.Web
 {

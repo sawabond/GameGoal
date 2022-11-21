@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using GameGoal.Data;
-using GameGoal.Data.Entities;
-using GameGoal.Web.Constants;
-using GameGoal.Web.Mapping;
-using GameGoal.Web.Services;
-using GameGoal.Web.Services.Abstractions;
+using Domain.Entities;
+using Infrastructure;
+using Infrastructure.Services;
+using Infrastructure.Services.Abstractions;
+using Infrastructure.Services.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Presentation.Constants;
+using Presentation.Mapping;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace GameGoal.Web.Extensions

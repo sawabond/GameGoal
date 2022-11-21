@@ -1,8 +1,9 @@
-﻿using GameGoal.Data;
-using GameGoal.Data.Interfaces;
+﻿using Domain.Abstractions;
 using GameGoal.Web.Extensions;
-using GameGoal.Web.Services;
-using GameGoal.Web.Services.Abstractions;
+using Infrastructure;
+using Infrastructure.Services;
+using Infrastructure.Services.Abstractions;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameGoal.Web
@@ -18,9 +19,23 @@ namespace GameGoal.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var presentationAssembly = typeof(Presentation.AssemblyReference).Assembly;
+
+            services.AddControllers()
+                .AddApplicationPart(presentationAssembly);
+
+            services
+                .Scan(selector => selector
+                    .FromAssemblies(typeof(Infrastructure.AssemblyReference).Assembly)
+                    .AddClasses(publicOnly: false)
+                    .AsImplementedInterfaces()
+                    .WithScopedLifetime());
+
+            services.AddMediatR(typeof(Application.AssemblyReference).Assembly);
+
             services.AddDbContext<ApplicationContext>(opt =>
             {
-                opt.UseInMemoryDatabase("InMemory");
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -30,7 +45,6 @@ namespace GameGoal.Web
             services.AddControllers();
 
             services.AddScoped<ISeeder, Seeder>();
-            services.AddScoped<IGoalPrioritizer, GoalPrioritizer>();
 
             services.AddBearerAuthentication(Configuration);
 
