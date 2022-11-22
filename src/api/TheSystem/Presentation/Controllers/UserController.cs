@@ -22,14 +22,9 @@ public class UserController : ApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
     {
-        var query = new GetUsersQuery();
+        var queryResult = await _sender.Send(new GetUsersQuery());
 
-        var queryResult = await _sender.Send(query);
-
-        if (!queryResult.IsSuccess)
-            return BadRequest(queryResult.Errors);
-
-        return Ok(queryResult.Value);
+        return queryResult.IsSuccess ? Ok(queryResult.Value) : BadRequest(queryResult.Errors);
     }
 
     [HttpPost]

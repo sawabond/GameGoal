@@ -1,6 +1,6 @@
 ﻿using Application.Abstractions.Messaging;
-using Domain.Entities;
+using Application.AppUsers.ViewModels;
 
 namespace Application.AppUsers.Queries.GetUsers;
 
-public sealed record GetUsersQuery() : ICommand<IEnumerable<AppUser>>;
+public sealed record GetUsersQuery() : IQuery<IEnumerable<AppUserViewModel>>;
