@@ -1,5 +1,6 @@
 ﻿using Application.AppUsers.Commands.CreateUser;
 using Application.AppUsers.Queries.GetUsers;
+using Application.AppUsers.Queries.LogIn;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +27,7 @@ public class UserController : ApiController
         return queryResult.IsSuccess ? Ok(queryResult.Value) : BadRequest(queryResult.Errors);
     }
 
-    [HttpPost]
+    [HttpPost("register")]
     public async Task<IActionResult> RegisterUser(string username, string password, CancellationToken cancellationToken)
     {
         var command = new CreateUserCommand(username, password);
@@ -34,5 +35,13 @@ public class UserController : ApiController
         var result = await _sender.Send(command, cancellationToken);
 
         return result.IsSuccess ? Ok() : BadRequest(result.Errors);
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> LogIn(LogInQuery logInQuery)
+    {
+        var logInResult = await _sender.Send(logInQuery);
+
+        return logInResult.IsSuccess ? Ok(logInResult.Value) : BadRequest(logInResult.Errors);
     }
 }

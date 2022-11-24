@@ -32,10 +32,9 @@ public class Startup
                 .FromAssemblies(typeof(Infrastructure.AssemblyReference).Assembly, typeof(Application.AssemblyReference).Assembly)
                 .AddClasses(filter => 
                 {
-                    filter.Where(t => t.IsAssignableTo(typeof(ICommand)) == false);
-                    filter.Where(t => t.IsAssignableTo(typeof(ICommand<>)) == false);
                     filter.Where(t => t.IsAssignableTo(typeof(IViewModel)) == false);
-
+                    filter.Where(t => t.Name.EndsWith("Command") == false);
+                    filter.Where(t => t.Name.EndsWith("Query") == false);
                 }, publicOnly: false)
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());

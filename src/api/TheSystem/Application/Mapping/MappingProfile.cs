@@ -11,7 +11,8 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<AppUser, AppUserViewModel>();
+        CreateMap<AppUser, AppUserViewModel>()
+            .ForMember(vm => vm.Token, opt => opt.Ignore());
         CreateMap<CreateUserCommand, AppUser>();
 
         CreateMap<CreateAchievementSystemCommand, AchievementSystem>();

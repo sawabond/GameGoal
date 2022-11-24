@@ -44,7 +44,6 @@ public sealed class CreateUserCommandHandler : ICommandHandler<CreateUserCommand
             return Result.Fail().WithErrors(result.Errors.Select(e => e.Description));
         }
 
-        var userViewModel = _mapper.Map<AppUserViewModel>(newUser);
         var authResult = await _tokenService.CreateToken(newUser);
 
         if (!authResult.IsSuccess)
@@ -52,6 +51,7 @@ public sealed class CreateUserCommandHandler : ICommandHandler<CreateUserCommand
             return Result.Fail().WithErrors(authResult.Errors);
         }
 
+        var userViewModel = _mapper.Map<AppUserViewModel>(newUser);
         userViewModel.Token = authResult.Value;
 
         return Result.Success();

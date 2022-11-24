@@ -2,7 +2,7 @@
 
 namespace Application.AppUsers.ViewModels;
 
-public class AppUserViewModel : IViewModel
+public sealed class AppUserViewModel : IViewModel
 {
     public string Id { get; set; }
 

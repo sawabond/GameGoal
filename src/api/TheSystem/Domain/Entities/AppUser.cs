@@ -11,7 +11,7 @@ public class AppUser : IdentityUser<string>
 
     public virtual IEnumerable<AppRole> Roles { get; set; }
 
-    public virtual IEnumerable<AchievementSystem>? AchievementSystems { get; set; }
+    public virtual ICollection<AchievementSystem>? AchievementSystems { get; set; }
 
     public virtual IEnumerable<Achievement> Achievements { get; set; }
 

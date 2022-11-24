@@ -46,7 +46,8 @@ namespace Infrastructure
                 { 
                     Id = Guid.NewGuid().ToString(), 
                     AppUserId = userId, 
-                    Name = "Just in time" 
+                    Name = "Just in time",
+                    Description = "Some descr"
                 });
         }
     }
