@@ -1,4 +1,6 @@
-﻿using Application.AppUsers.Commands.CreateUser;
+﻿using Application.AchievementSystems.Commands.CreateAchievementSystem;
+using Application.AchievementSystems.ViewModels;
+using Application.AppUsers.Commands.CreateUser;
 using Application.AppUsers.ViewModels;
 using AutoMapper;
 using Domain.Entities;
@@ -11,5 +13,8 @@ public class MappingProfile : Profile
     {
         CreateMap<AppUser, AppUserViewModel>();
         CreateMap<CreateUserCommand, AppUser>();
+
+        CreateMap<CreateAchievementSystemCommand, AchievementSystem>();
+        CreateMap<AchievementSystem, AchievementSystemViewModel>();
     }
 }

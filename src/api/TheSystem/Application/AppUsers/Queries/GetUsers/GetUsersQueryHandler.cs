@@ -1,5 +1,4 @@
 ﻿using Application.Abstractions.Messaging;
-using Application.AppUsers.ViewModels;
 using AutoMapper;
 using Domain.Abstractions;
 using Domain.Entities;

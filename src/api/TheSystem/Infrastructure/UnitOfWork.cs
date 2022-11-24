@@ -14,10 +14,12 @@ namespace Infrastructure
             _context.Database.EnsureCreated();
 
             UserRepository = new UserRepository(context);
+            AchievementSystemRepository = new AchievementSystemRepository(context);
         }
 
         public IUserRepository UserRepository { get; }
 
+        public IAchievementSystemRepository AchievementSystemRepository { get; }
 
         public async Task<bool> ConfirmAsync()
         {
