@@ -3,11 +3,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities;
 
-public sealed class AppUser : IdentityUser<string>
+public class AppUser : IdentityUser<string>
 {
     public override string Id { get; set; } = Guid.NewGuid().ToString();
-    [Required]
-    public string Gender { get; set; } = "Male";
 
-    public ICollection<AppRole> Roles { get; set; }
+    public string? Gender { get; set; }
+
+    public virtual IEnumerable<AppRole> Roles { get; set; }
+
+    public virtual IEnumerable<AchievementSystem>? AchievementSystems { get; set; }
+
+    public virtual IEnumerable<Achievement> Achievements { get; set; }
+
+    public virtual IEnumerable<RelativeAchievement> RelativeAchievements { get; set; }
+
+    public virtual IEnumerable<MeasurableAchievement> MeasurableAchievements { get; set; }
 }

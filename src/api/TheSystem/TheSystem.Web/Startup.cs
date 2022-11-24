@@ -44,7 +44,10 @@ public class Startup
 
         services.AddDbContext<ApplicationContext>(opt =>
         {
-            opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            opt
+            .UseLazyLoadingProxies()
+            .UseInMemoryDatabase("DB");
+            //.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
         });
 
         services.ProvideIdentity();

@@ -17,9 +17,9 @@ public abstract class DataRepository<T> : IDataRepository<T>
     string,
     IdentityUserClaim<string>,
     AppUserRole,
-    IdentityUserLogin<string>,
+    AppUserLogin,
     IdentityRoleClaim<string>,
-    IdentityUserToken<string>
+    AppUserToken
     > _context;
 
     public DataRepository(
@@ -30,9 +30,9 @@ public abstract class DataRepository<T> : IDataRepository<T>
     string,
     IdentityUserClaim<string>,
     AppUserRole,
-    IdentityUserLogin<string>,
+    AppUserLogin,
     IdentityRoleClaim<string>,
-    IdentityUserToken<string>
+    AppUserToken
     > context
         )
     {
