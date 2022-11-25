@@ -2,6 +2,7 @@
 using Application.AppUsers.ViewModels;
 using Application.Services.Abstractions;
 using AutoMapper;
+using Domain;
 using Domain.Abstractions;
 using Domain.Entities;
 using Domain.Shared;
@@ -42,6 +43,13 @@ public sealed class CreateUserCommandHandler : ICommandHandler<CreateUserCommand
         if (!result.Succeeded)
         {
             return Result.Fail().WithErrors(result.Errors.Select(e => e.Description));
+        }
+
+        var roleResult = await _userService.AddToRoleAsync(newUser, request.Role);
+
+        if (!roleResult.Succeeded)
+        {
+            return Result.Fail().WithErrors(roleResult.Errors.Select(e => e.Description));
         }
 
         var authResult = await _tokenService.CreateToken(newUser);

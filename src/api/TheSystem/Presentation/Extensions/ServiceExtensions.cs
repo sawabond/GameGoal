@@ -6,11 +6,13 @@ using Domain.Entities;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace TheSystem.Web.Extensions;
+namespace Presentation.Extensions;
 
 public static class ServiceExtensions
 {
@@ -91,5 +93,14 @@ public static class ServiceExtensions
         });
 
         return services;
+    }
+
+    public static IMvcBuilder ExcludeRecursiveNesting(this IMvcBuilder mvcBuilder)
+    {
+        return mvcBuilder
+            .AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
     }
 }

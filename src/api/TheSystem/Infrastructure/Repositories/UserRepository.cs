@@ -33,7 +33,8 @@ public class UserRepository : DataRepository<AppUser>, IUserRepository
     {
         var userWithRoles = await Users
             .Where(u => u.Id == id)
-            .Include(u => u.Roles)
+            .Include(u => u.UserRoles)
+            .ThenInclude(ur => ur.Role)
             .FirstOrDefaultAsync();
 
         return userWithRoles;

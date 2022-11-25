@@ -3,7 +3,6 @@ using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Presentation.Controllers;
 
@@ -16,7 +15,7 @@ public sealed class AchievementSystemController : AuthorizedApiController
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetAchievemenetSystemById(string id)
+    public async Task<IActionResult> GetAchievementSystemById(string id)
     {
         return Ok(string.Empty);
     }

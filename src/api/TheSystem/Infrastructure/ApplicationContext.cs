@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain;
+using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -33,22 +34,9 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var userId = Guid.NewGuid().ToString();
-            modelBuilder.Entity<AppUser>().HasData(
-                new AppUser
-                {
-                    Id = userId,
-                    UserName = "Alex",
-                });
-
-            modelBuilder.Entity<AchievementSystem>().HasData(
-                new AchievementSystem 
-                { 
-                    Id = Guid.NewGuid().ToString(), 
-                    AppUserId = userId, 
-                    Name = "Just in time",
-                    Description = "Some descr"
-                });
+            modelBuilder
+                .Entity<AppUserRole>()
+                .HasKey(ur => new { ur.UserId, ur.RoleId });
         }
     }
 }

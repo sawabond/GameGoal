@@ -38,13 +38,10 @@ public class TokenService : ITokenService
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
-        (await _uow
-            .UserRepository
-            .GetUserWithRolesById(user.Id))
-            .Roles
-            .Select(r => r.Name)
+        user.UserRoles
+            .Select(ur => ur.Role)
             .ToList()
-            .ForEach(role => claims.Add(new Claim(ClaimTypes.Role, role)));
+            .ForEach(role => claims.Add(new Claim(ClaimTypes.Role, role.Name)));
 
         var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);
 

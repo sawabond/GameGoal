@@ -1,13 +1,8 @@
 ﻿using Application.Abstractions;
-using Application.Abstractions.Messaging;
-using Application.AppUsers.ViewModels;
-using Application.Services;
-using Application.Services.Abstractions;
-using Domain.Abstractions;
 using Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using TheSystem.Web.Extensions;
+using Presentation.Extensions;
 
 namespace TheSystem.Web;
 
@@ -24,7 +19,9 @@ public class Startup
     {
         var presentationAssembly = typeof(Presentation.AssemblyReference).Assembly;
 
-        services.AddControllers()
+        services
+            .AddControllers()
+            .ExcludeRecursiveNesting()
             .AddApplicationPart(presentationAssembly);
 
         services
