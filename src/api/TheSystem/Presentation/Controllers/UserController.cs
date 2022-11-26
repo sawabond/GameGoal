@@ -43,7 +43,9 @@ public class UserController : ApiController
 
         var result = await _sender.Send(command, cancellationToken);
 
-        return result.IsSuccess ? Ok() : BadRequest(result.Errors);
+        return result.IsSuccess
+            ? await LogIn(new LogInQuery(command.UserName, command.Password))
+            : BadRequest(result.Errors);
     }
 
     [HttpPost("register-company")]
@@ -58,7 +60,9 @@ public class UserController : ApiController
 
         var result = await _sender.Send(command, cancellationToken);
 
-        return result.IsSuccess ? Ok() : BadRequest(result.Errors);
+        return result.IsSuccess
+            ? await LogIn(new LogInQuery(command.UserName, command.Password))
+            : BadRequest(result.Errors);
     }
 
     [HttpPost("register-admin")]
@@ -74,7 +78,9 @@ public class UserController : ApiController
 
         var result = await _sender.Send(command, cancellationToken);
 
-        return result.IsSuccess ? Ok() : BadRequest(result.Errors);
+        return result.IsSuccess
+            ? await LogIn(new LogInQuery(command.UserName, command.Password))
+            : BadRequest(result.Errors);
     }
 
     [HttpPost("login")]

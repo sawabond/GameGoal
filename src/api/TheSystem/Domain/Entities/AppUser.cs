@@ -5,7 +5,7 @@ namespace Domain.Entities;
 
 public class AppUser : IdentityUser<string>
 {
-    public override string Id { get; set; }
+    public override string Id { get; set; } = Guid.NewGuid().ToString();
 
     public string? Gender { get; set; }
 
