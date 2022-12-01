@@ -20,7 +20,7 @@ public sealed class CreateAchievementSystemCommandHandler : ICommandHandler<Crea
     {
         var achievementSystem = _mapper.Map<AchievementSystem>(request);
 
-        var user = await _uow.UserRepository.GetAsync(request.AppUserId);
+        var user = await _uow.UserRepository.GetAsync(request.CompanyId);
 
         user.AchievementSystems.Add(achievementSystem);
 

@@ -1,5 +1,6 @@
 ﻿using Application.AppUsers.Commands.CreateUser;
 using Application.AppUsers.ViewModels;
+using Application.Extensions;
 using Application.Services.Abstractions;
 using AutoMapper;
 using Domain.Abstractions;
@@ -31,7 +32,7 @@ public sealed class UserRegistrer : IUserRegistrer
         var company = await _uow.UserRepository.GetUserIncludingAll(request.CompanyId);
 
         var existingUser = company
-            .CompanyMembers
+            ?.CompanyMembers
             .Where(cm => cm.UserName == request.UserName)
             .FirstOrDefault();
 
@@ -63,8 +64,13 @@ public sealed class UserRegistrer : IUserRegistrer
             return Result.Fail().WithErrors(authResult.Errors);
         }
 
-        company.CompanyMembers.Add(newUser);
-        await _uow.ConfirmAsync();
+        var hasCompanyId = !request.CompanyId.IsEmptyGuid();
+
+        if (hasCompanyId)
+        {
+            company.CompanyMembers.Add(newUser);
+            await _uow.ConfirmAsync();
+        }
 
         var userViewModel = _mapper.Map<AppUserViewModel>(newUser);
         userViewModel.Token = authResult.Value;

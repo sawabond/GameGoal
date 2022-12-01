@@ -13,4 +13,6 @@ public class Achievement : Entity
     public bool IsNegative { get; set; }
 
     public string AchievementResult { get; set; }
+
+    public virtual ICollection<AppUser> AppUsers { get; set; }
 }
