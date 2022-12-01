@@ -1,4 +1,4 @@
-﻿namespace Application.Services.Extensions
+﻿namespace Application.Extensions
 {
     public static class IntExtensions
     {

@@ -1,6 +1,6 @@
 ﻿using Application.Constants;
+using Application.Extensions;
 using Application.Services.Abstractions;
-using Application.Services.Extensions;
 using Domain.Abstractions;
 using Domain.Entities;
 using Domain.Shared;

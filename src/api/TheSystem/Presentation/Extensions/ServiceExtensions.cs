@@ -1,6 +1,6 @@
 ﻿using Application.Constants;
+using Application.Extensions;
 using Application.Mapping;
-using Application.Services.Extensions;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure;

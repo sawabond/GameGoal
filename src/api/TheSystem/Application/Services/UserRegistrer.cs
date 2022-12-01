@@ -64,6 +64,9 @@ public sealed class UserRegistrer : IUserRegistrer
             return Result.Fail().WithErrors(authResult.Errors);
         }
 
+        var userViewModel = _mapper.Map<AppUserViewModel>(newUser);
+        userViewModel.Token = authResult.Value;
+
         var hasCompanyId = !request.CompanyId.IsEmptyGuid();
 
         if (hasCompanyId)
@@ -71,9 +74,6 @@ public sealed class UserRegistrer : IUserRegistrer
             company.CompanyMembers.Add(newUser);
             await _uow.ConfirmAsync();
         }
-
-        var userViewModel = _mapper.Map<AppUserViewModel>(newUser);
-        userViewModel.Token = authResult.Value;
 
         return Result.Success();
     }

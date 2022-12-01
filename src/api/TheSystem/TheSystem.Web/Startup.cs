@@ -36,6 +36,16 @@ public class Startup
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
 
+        services.AddCors(opt =>
+        {
+            opt.AddDefaultPolicy(policy =>
+            {
+                policy.AllowAnyHeader();
+                policy.AllowAnyOrigin();
+                policy.AllowAnyMethod();
+            });
+        });
+
         services.AddMediatR(typeof(Application.AssemblyReference).Assembly);
 
         services.AddDbContext<ApplicationContext>(opt =>
@@ -64,6 +74,8 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityServer v1"));
         }
+
+        app.UseCors();
 
         app.UseHttpsRedirection();
 
