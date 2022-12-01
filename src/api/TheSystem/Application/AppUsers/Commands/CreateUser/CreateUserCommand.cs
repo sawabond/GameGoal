@@ -10,4 +10,6 @@ public sealed class CreateUserCommand : ICommand
     public string Password { get; set; }
 
     public string Role { get; set; } = RoleConstants.User;
+
+    public string CompanyId { get; set; } = Guid.Empty.ToString();
 }

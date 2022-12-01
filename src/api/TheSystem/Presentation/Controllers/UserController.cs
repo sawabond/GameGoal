@@ -1,4 +1,5 @@
 ﻿using Application.AppUsers.Commands.CreateUser;
+using Application.AppUsers.Commands.CreateUserFromFile;
 using Application.AppUsers.Queries.GetUsers;
 using Application.AppUsers.Queries.LogIn;
 using Domain;
@@ -11,9 +12,8 @@ using Presentation.Requests;
 
 namespace Presentation.Controllers;
 
-public class UserController : ApiController
+public class UserController : AuthorizedApiController
 {
-
     public UserController(
         ISender sender
         ) : base(sender)
@@ -22,6 +22,7 @@ public class UserController : ApiController
     }
 
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
     {
@@ -38,7 +39,8 @@ public class UserController : ApiController
         { 
             UserName = request.UserName,
             Password = request.Password,
-            Role = RoleConstants.User
+            Role = RoleConstants.User,
+            CompanyId = UserId
         };
 
         var result = await _sender.Send(command, cancellationToken);
@@ -49,6 +51,7 @@ public class UserController : ApiController
     }
 
     [HttpPost("register-company")]
+    [AllowAnonymous]
     public async Task<IActionResult> RegisterCompany([FromBody] RegisterUserRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateUserCommand
@@ -83,7 +86,21 @@ public class UserController : ApiController
             : BadRequest(result.Errors);
     }
 
+    [HttpPost("company-members")]
+    [Authorize(Roles = RoleConstants.Company)]
+    public async Task<IActionResult> RegisterMemberList(IFormFile memberList, CancellationToken cancellationToken)
+    {
+        var command = new CreateUsersFromFileCommand(memberList, UserId);
+
+        var result =  await _sender.Send(command, cancellationToken);
+
+        return result.IsSuccess
+            ? Ok()
+            : BadRequest(result.Errors);
+    }
+
     [HttpPost("login")]
+    [AllowAnonymous]
     public async Task<IActionResult> LogIn(LogInQuery logInQuery)
     {
         var logInResult = await _sender.Send(logInQuery);

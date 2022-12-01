@@ -29,6 +29,18 @@ public class UserRepository : DataRepository<AppUser>, IUserRepository
         return await Users.Where(u => u.UserName == username).FirstOrDefaultAsync();
     }
 
+    public async Task<AppUser> GetUserIncludingAll(string id)
+    {
+        var user = await Users
+            .Where(u => u.Id == id)
+            .Include(u => u.UserRoles)
+            .Include(u => u.AchievementSystems)
+            .Include(u => u.CompanyMembers)
+            .FirstOrDefaultAsync();
+
+        return user;
+    }
+
     public async Task<AppUser> GetUserWithRolesById(string id)
     {
         var userWithRoles = await Users

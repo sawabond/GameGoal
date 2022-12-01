@@ -10,5 +10,7 @@ public interface IUserRepository : IDataRepository<AppUser>
 
     public Task<AppUser> GetUserWithRolesById(string id);
 
+    public Task<AppUser> GetUserIncludingAll(string id);
+
     public bool Any();
 }
