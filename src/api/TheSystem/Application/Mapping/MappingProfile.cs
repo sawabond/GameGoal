@@ -1,4 +1,6 @@
-﻿using Application.AchievementSystems.Commands.CreateAchievementSystem;
+﻿using Application.Achievements.Commands.CreateAchievement;
+using Application.Achievements.ViewModels;
+using Application.AchievementSystems.Commands.CreateAchievementSystem;
 using Application.AchievementSystems.ViewModels;
 using Application.AppUsers.Commands.CreateUser;
 using Application.AppUsers.ViewModels;
@@ -17,5 +19,8 @@ public class MappingProfile : Profile
 
         CreateMap<CreateAchievementSystemCommand, AchievementSystem>();
         CreateMap<AchievementSystem, AchievementSystemViewModel>();
+
+        CreateMap<CreateAchievementCommand, Achievement>();
+        CreateMap<Achievement, AchievementViewModel>();
     }
 }

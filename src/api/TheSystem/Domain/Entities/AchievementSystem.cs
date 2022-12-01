@@ -7,9 +7,9 @@ public class AchievementSystem : Entity
 
     public string Description { get; set; }
 
-    public virtual IEnumerable<Achievement> Achievements { get; set; }
+    public virtual ICollection<Achievement> Achievements { get; set; }
 
-    public virtual IEnumerable<MeasurableAchievement> MeasurableAchievements { get; set; }
+    public virtual ICollection<MeasurableAchievement> MeasurableAchievements { get; set; }
 
-    public virtual IEnumerable<RelativeAchievement> RelativeAchievements { get; set; }
+    public virtual ICollection<RelativeAchievement> RelativeAchievements { get; set; }
 }

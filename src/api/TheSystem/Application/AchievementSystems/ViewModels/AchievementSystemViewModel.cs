@@ -1,8 +1,11 @@
 ﻿using Application.Abstractions;
+using Application.Achievements.ViewModels;
 
 namespace Application.AchievementSystems.ViewModels;
 
 public sealed record AchievementSystemViewModel
-    (string AppUserId,
+    (string Id,
+    string AppUserId,
     string Name,
-    string Description) : IViewModel;
+    string Description,
+    ICollection<AchievementViewModel> Achievements) : IViewModel;

@@ -6,5 +6,7 @@ public interface IUnitOfWork
 
     IAchievementSystemRepository AchievementSystemRepository { get; }
 
+    IAchievementRepository AchievementRepository { get; }
+
     Task<bool> ConfirmAsync();
 }

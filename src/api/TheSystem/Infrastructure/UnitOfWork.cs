@@ -15,11 +15,14 @@ namespace Infrastructure
 
             UserRepository = new UserRepository(context);
             AchievementSystemRepository = new AchievementSystemRepository(context);
+            AchievementRepository = new AchievementRepository(context);
         }
 
         public IUserRepository UserRepository { get; }
 
         public IAchievementSystemRepository AchievementSystemRepository { get; }
+
+        public IAchievementRepository AchievementRepository { get; }
 
         public async Task<bool> ConfirmAsync()
         {

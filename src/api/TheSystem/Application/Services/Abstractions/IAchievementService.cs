@@ -6,7 +6,7 @@ namespace Application.Services.Abstractions;
 public interface IAchievementService<TAchievement>
     where TAchievement : class
 {
-    Task<Result> CreateAchievement(AppUser user, TAchievement achievement);
+    Task<Result> CreateForUser(string userId, TAchievement achievement);
 
-    Task<Result> CreateAchievement(AchievementSystem user, TAchievement achievement);
+    Task<Result> CreateAsPartOfSystem(string systemId, TAchievement achievement);
 }

@@ -1,4 +1,5 @@
 ﻿using Application.AchievementSystems.Commands.CreateAchievementSystem;
+using Application.AchievementSystems.Queries.GetAchievementSystemsByUserId;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +19,18 @@ public sealed class AchievementSystemController : AuthorizedApiController
     public async Task<IActionResult> GetAchievementSystemById(string id)
     {
         return Ok(string.Empty);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAchievementSystemsOfUser()
+    {
+        var query = new GetAchievementSystemsByUserIdQuery(UserId);
+
+        var result = await _sender.Send(query);
+
+        return result.IsSuccess
+            ? Ok(result.Value)
+            : BadRequest(result.Errors);
     }
 
     [HttpPost]
