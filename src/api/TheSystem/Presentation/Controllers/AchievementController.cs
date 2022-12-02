@@ -14,7 +14,7 @@ public sealed class AchievementController : AuthorizedApiController
 
     }
 
-    [HttpPost("achievement")]
+    [HttpPost]
     public async Task<IActionResult> CreateAchievement([FromBody] CreateAchievementRequest request)
     {
         var command = new CreateAchievementCommand(

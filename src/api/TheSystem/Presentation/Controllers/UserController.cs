@@ -12,7 +12,9 @@ using Presentation.Requests;
 
 namespace Presentation.Controllers;
 
-public class UserController : AuthorizedApiController
+[ProducesResponseType(StatusCodes.Status200OK)]
+[ProducesResponseType(StatusCodes.Status400BadRequest)]
+public sealed class UserController : AuthorizedApiController
 {
     public UserController(
         ISender sender
@@ -23,7 +25,6 @@ public class UserController : AuthorizedApiController
 
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
     {
         var queryResult = await _sender.Send(new GetUsersQuery());
@@ -86,7 +87,7 @@ public class UserController : AuthorizedApiController
             : BadRequest(result.Errors);
     }
 
-    [HttpPost("company-members")]
+    [HttpPost("import-members")]
     [Authorize(Roles = RoleConstants.Company)]
     public async Task<IActionResult> RegisterMemberList(IFormFile memberList, CancellationToken cancellationToken)
     {
