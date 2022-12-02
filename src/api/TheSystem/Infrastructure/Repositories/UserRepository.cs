@@ -45,6 +45,20 @@ public class UserRepository : DataRepository<AppUser>, IUserRepository
         return user;
     }
 
+    public async Task<IEnumerable<AppUser>> GetUsersIncludingAll()
+    {
+        var users = Users
+            .Include(u => u.UserRoles)
+            .Include(u => u.AchievementSystems)
+            .ThenInclude(s => s.Achievements)
+            .Include(u => u.Achievements)
+            .Include(u => u.RelativeAchievements)
+            .Include(u => u.MeasurableAchievements)
+            .Include(u => u.CompanyMembers);
+
+        return users;
+    }
+
     public async Task<AppUser> GetUserWithRolesById(string id)
     {
         var userWithRoles = await Users

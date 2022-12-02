@@ -19,7 +19,7 @@ public sealed class GetUsersQueryHandler : IQueryHandler<GetUsersQuery, IEnumera
     }
     public async Task<Result<IEnumerable<AppUserViewModel>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
-        var users = await _uow.UserRepository.GetAllAsync();
+        var users = await _uow.UserRepository.GetUsersIncludingAll();
 
         if (users is null)
         {

@@ -12,5 +12,7 @@ public interface IUserRepository : IDataRepository<AppUser>
 
     public Task<AppUser> GetUserIncludingAll(string id);
 
+    public Task<IEnumerable<AppUser>> GetUsersIncludingAll();
+
     public bool Any();
 }

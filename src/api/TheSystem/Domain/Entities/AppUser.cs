@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Domain.ValueObjects.Subscriptions;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,6 +10,8 @@ public class AppUser : IdentityUser<string>
     public override string Id { get; set; } = Guid.NewGuid().ToString();
 
     public string? Gender { get; set; }
+
+    public SubscriptionType? SubscriptionType { get; set; }
 
     public virtual ICollection<AppUserRole> UserRoles { get; set; }
 

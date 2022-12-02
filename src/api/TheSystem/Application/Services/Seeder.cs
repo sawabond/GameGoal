@@ -3,6 +3,7 @@ using Domain;
 using Domain.Abstractions;
 using Domain.Entities;
 using Domain.Shared;
+using Domain.ValueObjects.Subscriptions;
 using Microsoft.AspNetCore.Identity;
 
 namespace Application.Services;
@@ -50,24 +51,9 @@ public sealed class Seeder : ISeeder
 
             user = await _uow.UserRepository.GetUserIncludingAll(user.Id);
 
-            user.AchievementSystems.Add(new AchievementSystem
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Smoker",
-                Description = "Achievement system aimed on decreasing time workers spend on smoking",
-                Achievements = new[]
-                {
-                    new Achievement
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Name = "Not to smoke",
-                        Description = "You should not smoke during working day",
-                        AchievementResult = "5% salary increasing",
-                        IsAchieved = false,
-                        IsNegative = false,
-                    }
-                },
-            });
+            var subscription = new BasicPlan();
+
+            user.AchievementSystems.Add(subscription.Smoker);
 
             await _uow.ConfirmAsync();
         }

@@ -3,9 +3,11 @@ using Application.AppUsers.ViewModels;
 using Application.Extensions;
 using Application.Services.Abstractions;
 using AutoMapper;
+using Domain;
 using Domain.Abstractions;
 using Domain.Entities;
 using Domain.Shared;
+using Domain.ValueObjects.Subscriptions;
 
 namespace Application.Services;
 
@@ -57,29 +59,34 @@ public sealed class UserRegistrer : IUserRegistrer
             return Result.Fail().WithErrors(roleResult.Errors.Select(e => e.Description));
         }
 
-        var authResult = await _tokenService.CreateToken(newUser);
-
-        if (!authResult.IsSuccess)
-        {
-            return Result.Fail().WithErrors(authResult.Errors);
-        }
-
-        var userViewModel = _mapper.Map<AppUserViewModel>(newUser);
-        userViewModel.Token = authResult.Value;
-
         var hasCompanyId = !request.CompanyId.IsEmptyGuid();
 
         newUser = await _uow.UserRepository.GetUserIncludingAll(newUser.Id);
 
         if (hasCompanyId)
         {
-            company.CompanyMembers.Add(newUser);
+            await CreateAchievementsForUser(company, newUser);
+        }
+        else if (request.Role.Equals(RoleConstants.Company, StringComparison.InvariantCultureIgnoreCase))
+        {
+            var subscription = new BasicPlan();
 
-            company
-                .AchievementSystems
-                .SelectMany(x => x.Achievements)
-                .ToList()
-                .ForEach(a =>
+            newUser.AchievementSystems.Add(subscription.Smoker);
+            await _uow.ConfirmAsync();
+        }
+
+        return Result.Success();
+    }
+
+    private async Task CreateAchievementsForUser(AppUser? company, AppUser newUser)
+    {
+        company.CompanyMembers.Add(newUser);
+
+        company
+            .AchievementSystems
+            .SelectMany(x => x.Achievements)
+            .ToList()
+            .ForEach(a =>
             {
                 var achievement = _mapper.Map<Achievement>(a);
                 achievement.Id = Guid.NewGuid().ToString();
@@ -87,9 +94,6 @@ public sealed class UserRegistrer : IUserRegistrer
                 newUser.Achievements.Add(achievement);
             });
 
-            await _uow.ConfirmAsync();
-        }
-
-        return Result.Success();
+        await _uow.ConfirmAsync();
     }
 }
