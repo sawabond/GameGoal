@@ -4,9 +4,7 @@ using Domain.Shared;
 namespace Application.Services.Abstractions;
 
 public interface IAchievementService<TAchievement>
-    where TAchievement : class
+    where TAchievement : Achievement
 {
-    Task<Result> CreateForUser(string userId, TAchievement achievement);
-
-    Task<Result> CreateAsPartOfSystem(string systemId, TAchievement achievement);
+    Task<Result> CreateAchievement(string systemId, TAchievement achievement);
 }

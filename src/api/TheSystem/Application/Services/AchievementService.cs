@@ -1,11 +1,11 @@
 ﻿using Application.Services.Abstractions;
 using Domain.Abstractions;
+using Domain.Entities;
 using Domain.Shared;
-using Microsoft.AspNet.Identity;
 
 namespace Application.Services;
 
-public sealed class AchievementService : IAchievementService<Domain.Entities.Achievement>
+public sealed class AchievementService : IAchievementService<Achievement>
 {
     private readonly IUnitOfWork _uow;
 
@@ -14,7 +14,26 @@ public sealed class AchievementService : IAchievementService<Domain.Entities.Ach
         _uow = uow;
     }
 
-    public async Task<Result> CreateAsPartOfSystem(string systemId, Domain.Entities.Achievement achievement)
+    public async Task<Result> CreateAchievement(string systemId, Achievement achievement)
+    {
+        var createForSystemResult = await CreateAsPartOfSystem(systemId, achievement);
+
+        if (!createForSystemResult.IsSuccess)
+        {
+            return createForSystemResult;
+        }
+
+        var createForUsersResult = await CreateForUsers(systemId, achievement);
+
+        if (!createForUsersResult.IsSuccess)
+        {
+            return createForUsersResult;
+        }
+
+        return Result.Success();
+    }
+
+    private async Task<Result> CreateAsPartOfSystem(string systemId, Achievement achievement)
     {
         var system = await _uow.AchievementSystemRepository.GetIncludingAll(systemId);
 
@@ -30,19 +49,31 @@ public sealed class AchievementService : IAchievementService<Domain.Entities.Ach
             : Result.Fail().WithError($"Unable to create achievement - {achievement.Name} for system {system.Name}");
     }
 
-    public async Task<Result> CreateForUser(string userId, Domain.Entities.Achievement achievement)
+    private async Task<Result> CreateForUsers(string systemId, Achievement achievement)
     {
-        var user = await _uow.UserRepository.GetUserIncludingAll(userId);
+        var system = await _uow.AchievementSystemRepository.GetAsync(systemId);
+
+        if (system is null)
+        {
+            return Result.Fail().WithError("Unable to create achievement - achievement system is not found");
+        }
+
+        var user = await _uow.UserRepository.GetUserIncludingAll(system.AppUserId);
 
         if (user is null)
         {
             return Result.Fail().WithError("Unable to create achievement - user is not found");
         }
 
-        user.Achievements.Add(achievement);
+        user.CompanyMembers.ToList().ForEach(u =>
+        {
+            u.Achievements.Add(achievement);
+        });
 
         return await _uow.ConfirmAsync()
             ? Result.Success()
-            : Result.Fail().WithError($"Unable to create achievement - {achievement.Name} for user {user.UserName}");
+            : Result.Fail()
+            .WithError($"Unable to create achievement - {achievement.Name} for user {user.UserName} " +
+            $"and achievement system {system.Name}");
     }
 }

@@ -19,9 +19,10 @@ public sealed class CreateAchievementCommandHandler : ICommandHandler<CreateAchi
 
     public async Task<Result> Handle(CreateAchievementCommand request, CancellationToken cancellationToken)
     {
-        // TODO: Provide adding the achievement to users when the achievement is created
         var achievement = _mapper.Map<Achievement>(request);
 
-        return await _achievementService.CreateAsPartOfSystem(request.AchievementSystemId, achievement);
+        var systemResult = await _achievementService.CreateAchievement(request.AchievementSystemId, achievement);
+
+        return systemResult;
     }
 }
