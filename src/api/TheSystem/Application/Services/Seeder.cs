@@ -47,6 +47,29 @@ public sealed class Seeder : ISeeder
             await _userService.AddToRoleAsync(user, RoleConstants.User);
 
             await _uow.ConfirmAsync();
+
+            user = await _uow.UserRepository.GetUserIncludingAll(user.Id);
+
+            user.AchievementSystems.Add(new AchievementSystem
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Smoker",
+                Description = "Achievement system aimed on decreasing time workers spend on smoking",
+                Achievements = new[]
+                {
+                    new Achievement
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Name = "Not to smoke",
+                        Description = "You should not smoke during working day",
+                        AchievementResult = "5% salary increasing",
+                        IsAchieved = false,
+                        IsNegative = false,
+                    }
+                },
+            });
+
+            await _uow.ConfirmAsync();
         }
         catch (Exception ex)
         {

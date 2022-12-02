@@ -22,5 +22,6 @@ public class MappingProfile : Profile
 
         CreateMap<CreateAchievementCommand, Achievement>();
         CreateMap<Achievement, AchievementViewModel>();
+        CreateMap<Achievement, Achievement>();
     }
 }

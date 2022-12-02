@@ -69,9 +69,24 @@ public sealed class UserRegistrer : IUserRegistrer
 
         var hasCompanyId = !request.CompanyId.IsEmptyGuid();
 
+        newUser = await _uow.UserRepository.GetUserIncludingAll(newUser.Id);
+
         if (hasCompanyId)
         {
             company.CompanyMembers.Add(newUser);
+
+            company
+                .AchievementSystems
+                .SelectMany(x => x.Achievements)
+                .ToList()
+                .ForEach(a =>
+            {
+                var achievement = _mapper.Map<Achievement>(a);
+                achievement.Id = Guid.NewGuid().ToString();
+
+                newUser.Achievements.Add(achievement);
+            });
+
             await _uow.ConfirmAsync();
         }
 

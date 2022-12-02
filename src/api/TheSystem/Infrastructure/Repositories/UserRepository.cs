@@ -35,6 +35,10 @@ public class UserRepository : DataRepository<AppUser>, IUserRepository
             .Where(u => u.Id == id)
             .Include(u => u.UserRoles)
             .Include(u => u.AchievementSystems)
+            .ThenInclude(s => s.Achievements)
+            .Include(u => u.Achievements)
+            .Include(u => u.RelativeAchievements)
+            .Include(u => u.MeasurableAchievements)
             .Include(u => u.CompanyMembers)
             .FirstOrDefaultAsync();
 
