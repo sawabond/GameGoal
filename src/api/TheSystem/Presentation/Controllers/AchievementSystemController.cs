@@ -4,6 +4,7 @@ using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Requests;
 
 namespace Presentation.Controllers;
 
@@ -34,9 +35,11 @@ public sealed class AchievementSystemController : AuthorizedApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAchievementSystem(CreateAchievementSystemCommand request)
+    public async Task<IActionResult> CreateAchievementSystem([FromBody] CreateAchievementSystemRequest request)
     {
-        var createAchievementSystemResult = await _sender.Send(request);
+        var command = new CreateAchievementSystemCommand(UserId, request.Name, request.Description);
+
+        var createAchievementSystemResult = await _sender.Send(command);
 
         return createAchievementSystemResult.IsSuccess
             ? Ok()

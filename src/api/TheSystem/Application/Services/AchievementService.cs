@@ -23,7 +23,7 @@ public sealed class AchievementService : IAchievementService<Domain.Entities.Ach
             return Result.Fail().WithError("Unable to create achievement - achievement system is not found");
         }
 
-        system.Achievements.Append(achievement);
+        system.Achievements.Add(achievement);
 
         return await _uow.ConfirmAsync()
             ? Result.Success()
