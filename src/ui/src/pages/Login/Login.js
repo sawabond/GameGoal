@@ -38,7 +38,7 @@ export default function Login() {
         });
     },
   });
-  localStorage.setItem('user', JSON.stringify(user));
+  sessionStorage.setItem('user', JSON.stringify(user));
   if (user) {
     return <Navigate replace to={'/'} />;
   }

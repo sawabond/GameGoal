@@ -6,6 +6,8 @@ import './App.scss';
 import Login from './pages/Login/Login';
 import { AuthContext } from './hooks/useAuth';
 import ImportMembers from './pages/ImportMembers/ImportMembers';
+import CreateAchievements from './pages/CreateAchiv/CreateAchievements';
+import Achievements from './pages/Achievements/Achievements';
 function App() {
   const [user, setUser] = useState(null);
   const providerUser = useMemo(() => ({ user, setUser }), [user, setUser]);
@@ -17,6 +19,8 @@ function App() {
           <Route path="/registr" element={<Registration />} />
           <Route path="/login" element={<Login />} />
           <Route path="/import" element={<ImportMembers />} />
+          <Route path="/create-achiv" element={<CreateAchievements />} />
+          <Route path="/achievements" element={<Achievements />} />
         </Routes>
       </AuthContext.Provider>
     </div>
