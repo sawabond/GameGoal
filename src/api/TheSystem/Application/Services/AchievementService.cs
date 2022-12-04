@@ -65,6 +65,11 @@ public sealed class AchievementService : IAchievementService<Achievement>
             return Result.Fail().WithError("Unable to create achievement - user is not found");
         }
 
+        if (!user.CompanyMembers.Any())
+        {
+            return Result.Success();
+        }
+
         user.CompanyMembers.ToList().ForEach(u =>
         {
             u.Achievements.Add(achievement);
