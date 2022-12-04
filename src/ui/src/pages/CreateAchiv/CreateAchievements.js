@@ -34,14 +34,19 @@ export default function CreateAchievements() {
   const classes = useStyle();
   const onSubmit = (values, { resetForm }) => {
     axios
-      .post('https://localhost:7184/api/AchievementSystem', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + StorageUser.token,
+      .post(
+        'https://localhost:7184/api/AchievementSystem',
+        {
+          name: values.name,
+          description: values.description,
         },
-        name: values.name,
-        description: values.description,
-      })
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + StorageUser.token,
+          },
+        }
+      )
       .then((response) => {
         if (response.data.error) {
           console.log(response.data.error);
@@ -50,6 +55,7 @@ export default function CreateAchievements() {
       });
   };
   const StorageUser = JSON.parse(sessionStorage.getItem('user'));
+  console.log(StorageUser);
   return (
     <>
       <Header />

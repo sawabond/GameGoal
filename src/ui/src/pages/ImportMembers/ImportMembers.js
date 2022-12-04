@@ -14,21 +14,21 @@ export default function ImportMembers() {
   const handleSubmission = () => {
     const formData = new FormData();
 
-    formData.append('File', selectedFile);
-
+    formData.append('memberList', selectedFile);
     axios
-      .post('https://localhost:7184/api/User/import-members', {
-        method: 'POST',
-        body: formData,
+      .post('https://localhost:7184/api/User/import-members', formData, {
+        headers: {
+          Authorization: 'Bearer ' + StorageUser.token,
+        },
       })
-      .then((result) => {
-        console.log('Success:', result);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+      .then((response) => {
+        if (response.data.error) {
+          console.log(response.data.error);
+        }
       });
   };
-
+  let StorageUser = JSON.parse(sessionStorage.getItem('user'));
+  console.log(StorageUser);
   return (
     <>
       <Header />
