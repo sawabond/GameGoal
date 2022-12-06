@@ -218,7 +218,7 @@ export default function PrimarySearchAppBar() {
               </Link>
             </IconButton>
             <IconButton size="large">
-              <Link to={'/create-achiv'} style={{ color: 'white' }}>
+              <Link to={'/create-system'} style={{ color: 'white' }}>
                 <NoteAddIcon />
               </Link>
             </IconButton>
@@ -229,7 +229,7 @@ export default function PrimarySearchAppBar() {
               color="inherit"
             >
               <Badge badgeContent={4} color="error">
-                <Link to={'/achievements'} style={{ color: 'white' }}>
+                <Link to={'/system'} style={{ color: 'white' }}>
                   <EmojiEventsIcon />
                 </Link>
               </Badge>

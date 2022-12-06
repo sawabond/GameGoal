@@ -13,7 +13,6 @@ import { TextField } from 'formik-material-ui';
 import Header from '../../components/Header';
 import axios from 'axios';
 import { AuthContext } from '../../hooks/useAuth';
-import { Navigate } from 'react-router';
 const useStyle = makeStyles((theme) => ({
   padding: {
     padding: theme.spacing(3),
@@ -29,7 +28,7 @@ const initialValues = {
   description: '',
 };
 
-export default function CreateAchievements() {
+export default function CreateAchievementSystem() {
   const { user } = useContext(AuthContext);
   const classes = useStyle();
   const onSubmit = (values, { resetForm }) => {
@@ -66,7 +65,7 @@ export default function CreateAchievements() {
       >
         <Grid item md={6} style={{ margin: '2%' }}>
           <Card className={classes.padding}>
-            <CardHeader title="FORM ADDING AHIEVEMNTS"></CardHeader>
+            <CardHeader title="ADD NEW ACHIEVEMENT SYSTEM"></CardHeader>
             <Formik initialValues={initialValues} onSubmit={onSubmit}>
               {({ values }) => {
                 return (
