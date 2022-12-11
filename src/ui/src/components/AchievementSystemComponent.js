@@ -40,7 +40,7 @@ export default function AchievementSystemComponent({ systems }) {
       </CardContent>
       <CardActions>
         <Button size="small">
-          <Link to={'/achievements'}>View Details</Link>
+          <Link to={`/system-achievements?id=${systems.id}`}>View Details</Link>
         </Button>
       </CardActions>
     </Card>

@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,11 +14,13 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { styled, alpha } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { AuthContext } from '../hooks/useAuth';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import '../components/Header.scss';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -108,18 +109,10 @@ export default function PrimarySearchAppBar() {
         </div>
       ) : (
         <div className="menu-unlogin">
-          <MenuItem onClick={handleMenuClose}>
-            <Link
-              to={'/registr'}
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              Registration
-            </Link>
-          </MenuItem>
-          <Link
-            to={'/login'}
-            style={{ textDecoration: 'none', color: 'black' }}
-          >
+          <Link to={'/registr'}>
+            <MenuItem onClick={handleMenuClose}>Registration</MenuItem>
+          </Link>
+          <Link to={'/login'}>
             <MenuItem onClick={handleMenuClose}>Login</MenuItem>
           </Link>
         </div>
@@ -211,38 +204,48 @@ export default function PrimarySearchAppBar() {
           </Search>
 
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" color="white">
-              <Link to={'/import'} style={{ color: 'white' }}>
-                <GroupAddIcon />
-              </Link>
-            </IconButton>
-            <IconButton size="large">
-              <Link to={'/create-system'} style={{ color: 'white' }}>
-                <NoteAddIcon />
-              </Link>
-            </IconButton>
 
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <Link to={'/system'} style={{ color: 'white' }}>
-                  <EmojiEventsIcon />
-                </Link>
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {user ? (
+              <Box>
+                <IconButton size="large">
+                  <Link to={'/import'}>
+                    <GroupAddIcon />
+                  </Link>
+                </IconButton>
+
+                <IconButton size="large">
+                  <Link to={'/create-system'}>
+                    <NoteAddIcon />
+                  </Link>
+                </IconButton>
+
+                <IconButton
+                  size="large"
+                  aria-label="show 4 new mails"
+                  color="inherit"
+                >
+                  <Badge badgeContent={4} color="error">
+                    <Link to={'/system'}>
+                      <EmojiEventsIcon />
+                    </Link>
+                  </Badge>
+                </IconButton>
+
+                <IconButton
+                  size="large"
+                  aria-label="show 17 new notifications"
+                  color="inherit"
+                >
+                  <Badge badgeContent={17} color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+              </Box>
+            ) : (
+              ''
+            )}
+
             <IconButton
               size="large"
               edge="end"

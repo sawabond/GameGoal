@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import axios from 'axios';
+import AchievementComponent from '../../components/AchievementComponent';
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 const BASE_URL = `https://localhost:7184/api`;
 export default function Achievement() {
   const [data, setData] = useState();
@@ -24,6 +27,11 @@ export default function Achievement() {
   return (
     <>
       <Header />
+      <div className="div" style={{ margin: '1%' }}>
+        <Link to={'/create-achievements'} style={{ textDecoration: 'none' }}>
+          <Button variant="contained">ADD NEW ACHIEVEMENT</Button>
+        </Link>
+      </div>
       <div
         className="achiv-systems"
         style={{
@@ -36,10 +44,11 @@ export default function Achievement() {
       >
         {data
           ? data.map((systems) =>
-              systems.achievements.map((achiv) => (
-                <div key={achiv.id}>
-                  <p>{achiv.name}</p>
-                </div>
+              systems.achievements.map((achievement) => (
+                <AchievementComponent
+                  key={achievement.id}
+                  achievement={achievement}
+                />
               ))
             )
           : ''}
