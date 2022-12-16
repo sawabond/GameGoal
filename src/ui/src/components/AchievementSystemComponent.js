@@ -22,7 +22,6 @@ export default function AchievementSystemComponent({ systems }) {
         component="img"
         alt="green iguana"
         height="140"
-        image="/static/media/image.44622c8043ea62aac81b.jpg"
         sx={{
           float: 'left',
           margin: '0 1.5%',

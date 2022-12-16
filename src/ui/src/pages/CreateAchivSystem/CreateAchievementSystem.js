@@ -13,6 +13,8 @@ import { TextField } from 'formik-material-ui';
 import Header from '../../components/Header';
 import axios from 'axios';
 import { AuthContext } from '../../hooks/useAuth';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const useStyle = makeStyles((theme) => ({
   padding: {
     padding: theme.spacing(3),
@@ -30,6 +32,10 @@ const initialValues = {
 
 export default function CreateAchievementSystem() {
   const { user } = useContext(AuthContext);
+  const notifySuccesCreating = () =>
+    toast.success('Achievement system has been created !');
+  const notifyWrongCreating = () =>
+    toast.warning('Achievement system has not been created !');
   const classes = useStyle();
   const onSubmit = (values, { resetForm }) => {
     axios
@@ -47,8 +53,11 @@ export default function CreateAchievementSystem() {
         }
       )
       .then((response) => {
+        if (response) {
+          notifySuccesCreating();
+        }
         if (response.data.error) {
-          console.log(response.data.error);
+          notifyWrongCreating();
         }
         resetForm();
       });
@@ -109,6 +118,7 @@ export default function CreateAchievementSystem() {
               }}
             </Formik>
           </Card>
+          <ToastContainer />
         </Grid>
       </Grid>
     </>

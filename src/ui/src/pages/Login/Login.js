@@ -6,13 +6,16 @@ import TextField from '@mui/joy/TextField';
 import Button from '@mui/joy/Button';
 import Header from '../../components/Header';
 import { useFormik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../hooks/useAuth';
 import { Navigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const { user, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       UserName: '',
@@ -28,25 +31,30 @@ export default function Login() {
           }
         )
         .then((response) => {
-          if (response.data.error) {
-            console.log(response.data.error);
-          } else {
-            setUser((prevState) => ({
-              ...response.data,
-            }));
+          if (response.status === 200) {
+            toast.success('You are loggin');
+          }
+          setUser(() => ({
+            ...response.data,
+          }));
+        })
+        .catch(function (error) {
+          const errorJSON = error.toJSON();
+          if (errorJSON.status === 400) {
+            toast.warning('Wrong password or login');
           }
         });
+      <Navigate to={'/'} />;
     },
   });
   sessionStorage.setItem('user', JSON.stringify(user));
-  if (user) {
-    return <Navigate replace to={'/'} />;
-  }
+  console.log(user);
   return (
     <>
       <Header />
       <CssVarsProvider>
         <main>
+          <ToastContainer />
           <Sheet
             sx={{
               maxWidth: 400,
