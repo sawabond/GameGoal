@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Registration from './pages/Registration/Registration';
@@ -15,6 +15,7 @@ import Error from './pages/Error/Error';
 function App() {
   const [user, setUser] = useState(null);
   const providerUser = useMemo(() => ({ user, setUser }), [user, setUser]);
+
   return (
     <div className="App">
       <AuthContext.Provider value={providerUser}>
