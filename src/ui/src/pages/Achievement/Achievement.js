@@ -3,11 +3,12 @@ import Header from '../../components/Header';
 import axios from 'axios';
 import AchievementComponent from '../../components/AchievementComponent';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 const BASE_URL = `https://localhost:7184/api`;
 export default function Achievement() {
   const [data, setData] = useState();
   const [isLoading, setLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     axios
@@ -28,7 +29,10 @@ export default function Achievement() {
     <>
       <Header />
       <div className="div" style={{ margin: '1%' }}>
-        <Link to={'/create-achievements'} style={{ textDecoration: 'none' }}>
+        <Link
+          to={`/create-achievements?id=${searchParams.get('id')}`}
+          style={{ textDecoration: 'none' }}
+        >
           <Button variant="contained">ADD NEW ACHIEVEMENT</Button>
         </Link>
       </div>

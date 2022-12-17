@@ -13,6 +13,8 @@ import { TextField } from 'formik-material-ui';
 import Header from '../../components/Header';
 import axios from 'axios';
 import { AuthContext } from '../../hooks/useAuth';
+import { useSearchParams } from 'react-router-dom';
+
 const useStyle = makeStyles((theme) => ({
   padding: {
     padding: theme.spacing(3),
@@ -30,11 +32,14 @@ const initialValues = {
 export default function CreateAchievements() {
   const { user } = useContext(AuthContext);
   const classes = useStyle();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const onSubmit = (values, { resetForm }) => {
     axios
       .post(
         'https://localhost:7184/api/Achievement',
         {
+          achievementSystemId: searchParams.get('id'),
           name: values.name,
           description: values.description,
         },
@@ -64,7 +69,7 @@ export default function CreateAchievements() {
       >
         <Grid item md={6} style={{ margin: '2%' }}>
           <Card className={classes.padding}>
-            <CardHeader title="ADD NEW ACHIEVEMENT"></CardHeader>
+            <CardHeader title="Enter achievement information"></CardHeader>
             <Formik initialValues={initialValues} onSubmit={onSubmit}>
               {({ values }) => {
                 return (
@@ -100,7 +105,7 @@ export default function CreateAchievements() {
                         type="Submit"
                         className={classes.button}
                       >
-                        ADD NEW ACHIEVEMENTS
+                        ADD NEW ACHIEVEMENT
                       </Button>
                     </CardActions>
                   </Form>

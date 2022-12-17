@@ -24,19 +24,16 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-//Data
 const initialValues = {
   username: '',
   password: '',
 };
 
-//password validation
 const lowercaseRegEx = /(?=.*[a-z])/;
 const uppercaseRegEx = /(?=.*[A-Z])/;
 const numericRegEx = /(?=.*[0-9])/;
 const lengthRegEx = /(?=.{6,})/;
 
-//validation schema
 let validationSchema = Yup.object().shape({
   password: Yup.string()
     .matches(
@@ -109,27 +106,6 @@ export default function FormRegistration() {
                             component={TextField}
                           />
                         </Grid>
-                        {/* <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            label="Last Name"
-                            variant="outlined"
-                            fullWidth
-                            name="lastName"
-                            value={values.lastName}
-                            component={TextField}
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            label="Email"
-                            variant="outlined"
-                            fullWidth
-                            name="email"
-                            value={values.email}
-                            component={TextField}
-                          />
-                        </Grid> */}
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
                             label="Password"
@@ -141,22 +117,10 @@ export default function FormRegistration() {
                             component={TextField}
                           />
                         </Grid>
-                        {/* <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            label="Repeat Password"
-                            variant="outlined"
-                            fullWidth
-                            name="password_confirmation"
-                            value={values.password_confirmation}
-                            type="password"
-                            component={TextField}
-                          />
-                        </Grid> */}
                       </Grid>
                     </CardContent>
                     <CardActions>
                       <Button
-                        // disabled={!dirty || !isValid}
                         variant="contained"
                         color="primary"
                         type="Submit"
