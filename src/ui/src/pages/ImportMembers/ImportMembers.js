@@ -4,6 +4,8 @@ import Header from '../../components/Header';
 import { Button } from '@material-ui/core';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './ImportMembers.scss';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 export default function ImportMembers() {
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
@@ -35,19 +37,38 @@ export default function ImportMembers() {
     <>
       <Header />
       <ToastContainer />
-      <input type="file" name="file" onChange={changeHandler} />
-      {isFilePicked ? (
-        <div>
-          <p>Filename: {selectedFile.name}</p>
-          <p>Filetype: {selectedFile.type}</p>
+
+      <div
+        className="upload"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+        }}
+      >
+        <div
+          className="upload-choose-file"
+          style={{
+            width: '25%',
+          }}
+        >
+          <label className="custom-file-upload">
+            <input type="file" multiple onChange={changeHandler} />
+            <div
+              className="div"
+              style={{ display: 'flex', alignItems: 'center' }}
+            >
+              <FileUploadIcon />
+              {isFilePicked ? <p>{selectedFile.name}</p> : <p>Choose File</p>}
+            </div>
+          </label>
         </div>
-      ) : (
-        <p>Select a file to show details</p>
-      )}
-      <div>
-        <Button color="primary" onClick={handleSubmission}>
-          Submit
-        </Button>
+        <div className="upload-button">
+          <Button color="primary" onClick={handleSubmission}>
+            Upload
+          </Button>
+        </div>
       </div>
     </>
   );
