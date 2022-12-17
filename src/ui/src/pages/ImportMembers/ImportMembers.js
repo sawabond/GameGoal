@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './ImportMembers.scss';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+
 export default function ImportMembers() {
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
@@ -26,8 +27,17 @@ export default function ImportMembers() {
         },
       })
       .then((response) => {
+        if (response) {
+          toast.success('Users succesfully imported');
+        }
         if (response.data.error) {
           console.log(response.data.error);
+        }
+      })
+      .catch(function (error) {
+        const errorJSON = error.toJSON();
+        if (errorJSON.status === 400) {
+          toast.warning('Users already exists');
         }
       });
   };
@@ -44,13 +54,16 @@ export default function ImportMembers() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '100%',
+          height: '90%',
+          flexDirection: 'column',
         }}
       >
+        <h1>Import new users in your company:</h1>
         <div
           className="upload-choose-file"
           style={{
             width: '25%',
+            margin: '1%',
           }}
         >
           <label className="custom-file-upload">
@@ -60,7 +73,11 @@ export default function ImportMembers() {
               style={{ display: 'flex', alignItems: 'center' }}
             >
               <FileUploadIcon />
-              {isFilePicked ? <p>{selectedFile.name}</p> : <p>Choose File</p>}
+              {isFilePicked ? (
+                <p>{selectedFile.name}</p>
+              ) : (
+                <p>Choose file with list users</p>
+              )}
             </div>
           </label>
         </div>
