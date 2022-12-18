@@ -16,19 +16,32 @@ public sealed class CreateUsersFromFileCommandHandler : ICommandHandler<CreateUs
     }
     public async Task<Result> Handle(CreateUsersFromFileCommand request, CancellationToken cancellationToken)
     {
+        if (request.FileForm is null)
+        {
+            return Result.Fail().WithError("File is not provided");
+        }
+
         using var readStream = new StreamReader(request.FileForm.OpenReadStream());
 
         Dictionary<string, string> nickPassPairs = new();
 
-        while (readStream.Peek() >= 0)
+        try
         {
-            var line = readStream.ReadLine();
+            while (readStream.Peek() >= 0)
+            {
+                var line = readStream.ReadLine();
 
-            var nick = line.Split(':')[0];
-            var pass = line.Split(':')[1];
+                var nick = line.Split(':')[0];
+                var pass = line.Split(':')[1];
 
-            nickPassPairs.Add(nick, pass);
+                nickPassPairs.Add(nick, pass);
+            }
         }
+        catch
+        {
+            return Result.Fail().WithError("Unable to parse the file content");
+        }
+        
         var results = new List<Result>();
 
         nickPassPairs.ToList().ForEach(async pair =>
