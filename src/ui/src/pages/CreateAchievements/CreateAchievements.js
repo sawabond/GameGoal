@@ -12,7 +12,7 @@ import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import Header from '../../components/Header';
 import axios from 'axios';
-import { AuthContext } from '../../hooks/useAuth';
+import { userContext } from '../../Contexts/userContext';
 import { useSearchParams } from 'react-router-dom';
 
 const useStyle = makeStyles((theme) => ({
@@ -30,7 +30,7 @@ const initialValues = {
   description: '',
 };
 export default function CreateAchievements() {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(userContext);
   const classes = useStyle();
   const [searchParams, setSearchParams] = useSearchParams();
 

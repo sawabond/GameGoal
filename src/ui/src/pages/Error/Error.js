@@ -12,7 +12,7 @@ export default function Error() {
           justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
-          height: '100vh',
+          height: '91vh',
         }}
       >
         <h1>403 | You are not allowed to view this page</h1>

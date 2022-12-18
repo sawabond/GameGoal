@@ -11,9 +11,8 @@ import {
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { TextField } from 'formik-material-ui';
-import Header from '../components/Header';
 import axios from 'axios';
-import { AuthContext } from '../hooks/useAuth';
+import { userContext } from '../Contexts/userContext';
 import { Navigate } from 'react-router';
 const useStyle = makeStyles((theme) => ({
   padding: {
@@ -49,7 +48,7 @@ let validationSchema = Yup.object().shape({
     .required('Required!'),
 });
 export default function FormRegistration() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(userContext);
   const classes = useStyle();
   const onSubmit = (values, { resetForm }) => {
     axios
@@ -77,7 +76,6 @@ export default function FormRegistration() {
   }
   return (
     <>
-      <Header />
       <Grid
         container
         justifyContent="center"

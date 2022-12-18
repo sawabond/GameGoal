@@ -20,7 +20,7 @@ export default function AchievementSystemComponent({ systems }) {
     >
       <CardMedia
         component="img"
-        alt="green iguana"
+        alt="img"
         height="140"
         sx={{
           float: 'left',

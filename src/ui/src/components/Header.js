@@ -3,28 +3,26 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
-import { AuthContext } from '../hooks/useAuth';
+import { userContext } from '../Contexts/userContext';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import Tooltip from '@mui/material/Tooltip';
-
+import useLogout from '../hooks/useLogout';
 import '../components/Header.scss';
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(userContext);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const logOut = useLogout();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -60,9 +58,9 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {user ? (
+      {user && user ? (
         <div className="menu-login">
-          <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+          <MenuItem onClick={logOut}>Logout</MenuItem>
         </div>
       ) : (
         <div className="menu-unlogin">
@@ -94,9 +92,9 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {user ? (
+      {user && user ? (
         <div className="menu-login">
-          <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+          <MenuItem onClick={logOut}>Logout</MenuItem>
         </div>
       ) : (
         <div className="menu-unlogin">
@@ -113,7 +111,10 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        style={{ backgroundColor: '#1976d2', color: 'white' }}
+      >
         <Toolbar>
           <Box sx={{ flexGrow: 1 }} />
 
@@ -123,7 +124,7 @@ export default function PrimarySearchAppBar() {
                 <Tooltip title="Import users">
                   <IconButton size="large">
                     <Link to={'/import'}>
-                      <GroupAddIcon />
+                      <GroupAddIcon style={{ color: 'white' }} />
                     </Link>
                   </IconButton>
                 </Tooltip>
@@ -131,7 +132,7 @@ export default function PrimarySearchAppBar() {
                 <Tooltip title="Create achievement system">
                   <IconButton size="large">
                     <Link to={'/create-system'}>
-                      <NoteAddIcon />
+                      <NoteAddIcon style={{ color: 'white' }} />
                     </Link>
                   </IconButton>
                 </Tooltip>
@@ -142,11 +143,9 @@ export default function PrimarySearchAppBar() {
                     aria-label="show 4 new mails"
                     color="inherit"
                   >
-                    <Badge badgeContent={4} color="error">
-                      <Link to={'/system'}>
-                        <EmojiEventsIcon />
-                      </Link>
-                    </Badge>
+                    <Link to={'/system'}>
+                      <EmojiEventsIcon style={{ color: 'white' }} />
+                    </Link>
                   </IconButton>
                 </Tooltip>
               </Box>

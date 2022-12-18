@@ -6,16 +6,14 @@ import TextField from '@mui/joy/TextField';
 import Button from '@mui/joy/Button';
 import Header from '../../components/Header';
 import { useFormik } from 'formik';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../../hooks/useAuth';
+import { userContext } from '../../Contexts/userContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
-  const { user, setUser } = useContext(AuthContext);
-
-  const navigate = useNavigate();
+  const { user, setUser } = useContext(userContext);
 
   const formik = useFormik({
     initialValues: {
@@ -33,8 +31,8 @@ export default function Login() {
         )
         .then((response) => {
           if (response.status === 200) {
+            console.log(response.data);
             toast.success('You are logged in');
-            navigate('/');
           }
           setUser(() => ({
             ...response.data,
