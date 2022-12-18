@@ -89,7 +89,7 @@ public sealed class UserController : AuthorizedApiController
 
     [HttpPost("import-members")]
     [Authorize(Roles = RoleConstants.Company)]
-    public async Task<IActionResult> RegisterMemberList([FromForm]IFormFile memberList, CancellationToken cancellationToken)
+    public async Task<IActionResult> RegisterMemberList([FromForm] IFormFile memberList, CancellationToken cancellationToken)
     {
         var command = new CreateUsersFromFileCommand(memberList, UserId);
 
