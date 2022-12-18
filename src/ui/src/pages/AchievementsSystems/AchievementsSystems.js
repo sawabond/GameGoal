@@ -10,6 +10,7 @@ export default function AchievementSystems() {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    let StorageUser = JSON.parse(sessionStorage.getItem('user'));
     axios
       .get(BASE_URL + `/AchievementSystem`, {
         headers: {
@@ -23,7 +24,6 @@ export default function AchievementSystems() {
         setData(data);
       });
   }, []);
-  let StorageUser = JSON.parse(sessionStorage.getItem('user'));
   return (
     <>
       <Header />

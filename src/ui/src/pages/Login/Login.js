@@ -8,11 +8,13 @@ import Header from '../../components/Header';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../../hooks/useAuth';
-import { Navigate } from 'react-router-dom';
+import { userContext } from '../../Contexts/userContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(userContext);
+
   const formik = useFormik({
     initialValues: {
       UserName: '',
@@ -28,25 +30,29 @@ export default function Login() {
           }
         )
         .then((response) => {
-          if (response.data.error) {
-            console.log(response.data.error);
-          } else {
-            setUser((prevState) => ({
-              ...response.data,
-            }));
+          if (response.status === 200) {
+            console.log(response.data);
+            toast.success('You are logged in');
+          }
+          setUser(() => ({
+            ...response.data,
+          }));
+        })
+        .catch(function (error) {
+          const errorJSON = error.toJSON();
+          if (errorJSON.status === 400) {
+            toast.warning('Wrong password or login');
           }
         });
     },
   });
   sessionStorage.setItem('user', JSON.stringify(user));
-  if (user) {
-    return <Navigate replace to={'/'} />;
-  }
   return (
     <>
       <Header />
       <CssVarsProvider>
         <main>
+          <ToastContainer />
           <Sheet
             sx={{
               maxWidth: 400,

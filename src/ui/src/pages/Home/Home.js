@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Header from '../../components/Header';
-import { AuthContext } from '../../hooks/useAuth';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Home() {
-  const { user, setUser } = useContext(AuthContext);
   return (
     <>
       <Header />
+      <ToastContainer />
     </>
   );
 }

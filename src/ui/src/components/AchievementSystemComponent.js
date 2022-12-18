@@ -20,9 +20,8 @@ export default function AchievementSystemComponent({ systems }) {
     >
       <CardMedia
         component="img"
-        alt="green iguana"
+        alt="img"
         height="140"
-        image="/static/media/image.44622c8043ea62aac81b.jpg"
         sx={{
           float: 'left',
           margin: '0 1.5%',
@@ -40,7 +39,7 @@ export default function AchievementSystemComponent({ systems }) {
       </CardContent>
       <CardActions>
         <Button size="small">
-          <Link to={'/achievements'}>View Details</Link>
+          <Link to={`/system-achievements?id=${systems.id}`}>View Details</Link>
         </Button>
       </CardActions>
     </Card>

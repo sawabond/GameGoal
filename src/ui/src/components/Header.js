@@ -1,71 +1,28 @@
 import React, { useContext, useState } from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
-import { AuthContext } from '../hooks/useAuth';
+import { userContext } from '../Contexts/userContext';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
+import Tooltip from '@mui/material/Tooltip';
+import useLogout from '../hooks/useLogout';
+import '../components/Header.scss';
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(userContext);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const logOut = useLogout();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -101,25 +58,16 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {user ? (
+      {user && user ? (
         <div className="menu-login">
-          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+          <MenuItem onClick={logOut}>Logout</MenuItem>
         </div>
       ) : (
         <div className="menu-unlogin">
-          <MenuItem onClick={handleMenuClose}>
-            <Link
-              to={'/registr'}
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              Registration
-            </Link>
-          </MenuItem>
-          <Link
-            to={'/login'}
-            style={{ textDecoration: 'none', color: 'black' }}
-          >
+          <Link to={'/registr'}>
+            <MenuItem onClick={handleMenuClose}>Registration</MenuItem>
+          </Link>
+          <Link to={'/login'}>
             <MenuItem onClick={handleMenuClose}>Login</MenuItem>
           </Link>
         </div>
@@ -144,105 +92,67 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      {user && user ? (
+        <div className="menu-login">
+          <MenuItem onClick={logOut}>Logout</MenuItem>
+        </div>
+      ) : (
+        <div className="menu-unlogin">
+          <Link to={'/registr'}>
+            <MenuItem onClick={handleMenuClose}>Registration</MenuItem>
+          </Link>
+          <Link to={'/login'}>
+            <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+          </Link>
+        </div>
+      )}
     </Menu>
   );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        style={{ backgroundColor: '#1976d2', color: 'white' }}
+      >
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            MUI
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" color="white">
-              <Link to={'/import'} style={{ color: 'white' }}>
-                <GroupAddIcon />
-              </Link>
-            </IconButton>
-            <IconButton size="large">
-              <Link to={'/create-system'} style={{ color: 'white' }}>
-                <NoteAddIcon />
-              </Link>
-            </IconButton>
 
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <Link to={'/system'} style={{ color: 'white' }}>
-                  <EmojiEventsIcon />
-                </Link>
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {user ? (
+              <Box>
+                <Tooltip title="Import users">
+                  <IconButton size="large">
+                    <Link to={'/import'}>
+                      <GroupAddIcon style={{ color: 'white' }} />
+                    </Link>
+                  </IconButton>
+                </Tooltip>
+
+                <Tooltip title="Create achievement system">
+                  <IconButton size="large">
+                    <Link to={'/create-system'}>
+                      <NoteAddIcon style={{ color: 'white' }} />
+                    </Link>
+                  </IconButton>
+                </Tooltip>
+
+                <Tooltip title="Achievement systems">
+                  <IconButton
+                    size="large"
+                    aria-label="show 4 new mails"
+                    color="inherit"
+                  >
+                    <Link to={'/system'}>
+                      <EmojiEventsIcon style={{ color: 'white' }} />
+                    </Link>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            ) : (
+              ''
+            )}
+
             <IconButton
               size="large"
               edge="end"

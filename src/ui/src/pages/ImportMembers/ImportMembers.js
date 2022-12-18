@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Header from '../../components/Header';
 import { Button } from '@material-ui/core';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './ImportMembers.scss';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+
 export default function ImportMembers() {
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
@@ -22,8 +27,17 @@ export default function ImportMembers() {
         },
       })
       .then((response) => {
+        if (response) {
+          toast.success('Users succesfully imported');
+        }
         if (response.data.error) {
           console.log(response.data.error);
+        }
+      })
+      .catch(function (error) {
+        const errorJSON = error.toJSON();
+        if (errorJSON.status === 400) {
+          toast.warning('Users already exists');
         }
       });
   };
@@ -32,19 +46,46 @@ export default function ImportMembers() {
   return (
     <>
       <Header />
-      <input type="file" name="file" onChange={changeHandler} />
-      {isFilePicked ? (
-        <div>
-          <p>Filename: {selectedFile.name}</p>
-          <p>Filetype: {selectedFile.type}</p>
+      <ToastContainer />
+
+      <div
+        className="upload"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '90%',
+          flexDirection: 'column',
+        }}
+      >
+        <h1>Import new users in your company:</h1>
+        <div
+          className="upload-choose-file"
+          style={{
+            width: '25%',
+            margin: '1%',
+          }}
+        >
+          <label className="custom-file-upload">
+            <input type="file" multiple onChange={changeHandler} />
+            <div
+              className="div"
+              style={{ display: 'flex', alignItems: 'center' }}
+            >
+              <FileUploadIcon />
+              {isFilePicked ? (
+                <p>{selectedFile.name}</p>
+              ) : (
+                <p>Choose file with list users</p>
+              )}
+            </div>
+          </label>
         </div>
-      ) : (
-        <p>Select a file to show details</p>
-      )}
-      <div>
-        <Button color="primary" onClick={handleSubmission}>
-          Submit
-        </Button>
+        <div className="upload-button">
+          <Button color="primary" onClick={handleSubmission}>
+            Upload
+          </Button>
+        </div>
       </div>
     </>
   );
