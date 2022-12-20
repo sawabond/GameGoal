@@ -6,28 +6,40 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 export default function AchievementComponent({ achievement }) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card
+      sx={{
+        width: '30%',
+        maxWidth: '30%',
+        minWidth: '30%',
+        margin: '1%',
+        flex: '1 1 150px',
+      }}
+    >
       <CardActionArea>
         <CardMedia
           component="img"
-          image={require('../img/no-image.jpg')}
+          image={require('../img/smoke.jpg')}
           height="140"
           alt="img"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            sx={{ overflowWrap: 'break-word' }}
+          >
             {achievement.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ overflowWrap: 'break-word' }}
+          >
             {achievement.description}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        {/* <Button size="small" color="primary">
-          Share
-        </Button> */}
-      </CardActions>
     </Card>
   );
 }

@@ -16,7 +16,7 @@ export default function Error() {
           justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
-          height: '91vh',
+          height: '100%',
         }}
       >
         <h1>403 | {t('YOU_ARE_NOT_ALLOWED_TO_VIEW_THIS_PAGE')}</h1>
