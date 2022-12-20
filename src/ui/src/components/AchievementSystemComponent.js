@@ -17,8 +17,9 @@ export default function AchievementSystemComponent({ systems }) {
         display: 'flex',
         width: '70%',
         margin: '1%',
-        padding: '5%',
-        justifyContent: 'flex-start',
+        padding: '3%',
+        justifyContent: 'space-between',
+        alignItems: 'center',
       }}
     >
       <CardMedia
@@ -30,11 +31,11 @@ export default function AchievementSystemComponent({ systems }) {
         sx={{
           float: 'left',
           margin: '0 1.5%',
-          width: '30%',
+          width: '140px',
           backgroundSize: '100% 100%',
         }}
       />
-      <CardContent>
+      <CardContent sx={{ width: '35%' }}>
         <Typography
           sx={{
             wordBreak: 'break-all',
