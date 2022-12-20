@@ -8,7 +8,6 @@ using Presentation.Requests;
 
 namespace Presentation.Controllers;
 
-[Authorize(Roles = RoleConstants.User)]
 public sealed class AchievementController : AuthorizedApiController
 {
     public AchievementController(ISender sender) : base(sender)
@@ -34,6 +33,7 @@ public sealed class AchievementController : AuthorizedApiController
     }
 
     [HttpPost("{name}")]
+    [Authorize(Roles = RoleConstants.User)]
     public async Task<IActionResult> CompleteAchievement(string name)
     {
         var command = new CompleteAchievementCommand(UserId, name);
