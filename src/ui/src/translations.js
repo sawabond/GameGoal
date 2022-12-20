@@ -11,6 +11,10 @@ let translationsEn = {
   SIGN_UP: 'Sign up',
   YOU_ARE_LOGGED_IN: 'You are logged in',
   UNKNOWN_ERROR_OCCURRED: 'An unknown error has occurred',
+  USERS_SUCCESSFULLY_IMPORTED: 'Users have been successfully imported',
+  IMPORT_NEW_USERS_OF_YOUR_COMPANY: 'Import new users of your company',
+  CHOOSE_FILE_WITH_USER_LIST: 'Choose a file with a user list',
+  UPLOAD: 'Upload',
 };
 
 let translationsUk = {
@@ -26,6 +30,11 @@ let translationsUk = {
   SIGN_UP: 'Зареєструватися',
   YOU_ARE_LOGGED_IN: 'Ви увійшли',
   UNKNOWN_ERROR_OCCURRED: 'Сталася невідома помилка',
+  USERS_SUCCESSFULLY_IMPORTED: 'Користувачі успішно імпортовані',
+  IMPORT_NEW_USERS_OF_YOUR_COMPANY:
+    'Імпортуйте нових користувачів Вашої компанії',
+  CHOOSE_FILE_WITH_USER_LIST: 'Оберіть файл зі списком користувачів',
+  UPLOAD: 'Завантажити',
 
   // validation
   'Must contain one lowercase alphabetical character!':
