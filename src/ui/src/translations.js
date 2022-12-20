@@ -11,10 +11,20 @@ let translationsEn = {
   SIGN_UP: 'Sign up',
   YOU_ARE_LOGGED_IN: 'You are logged in',
   UNKNOWN_ERROR_OCCURRED: 'An unknown error has occurred',
+  // Import users
   USERS_SUCCESSFULLY_IMPORTED: 'Users have been successfully imported',
   IMPORT_NEW_USERS_OF_YOUR_COMPANY: 'Import new users of your company',
   CHOOSE_FILE_WITH_USER_LIST: 'Choose a file with a user list',
   UPLOAD: 'Upload',
+  // Achievement system
+  ACHIEVEMENT_SYSTEM: 'Achievement system',
+  NAME: 'Name',
+  DESCRIPTION: 'Description',
+  ADD_NEW_ACHIEVEMENT_SYSTEM: 'Add new achievement system',
+  ACHIEVEMENT_SYSTEM_HAS_BEEN_CREATED:
+    'The achievement system has been created',
+  ACHIEVEMENT_SYSTEM_HAS_NOT_BEEN_CREATED:
+    'The achievement system has not been created',
 };
 
 let translationsUk = {
@@ -35,6 +45,13 @@ let translationsUk = {
     'Імпортуйте нових користувачів Вашої компанії',
   CHOOSE_FILE_WITH_USER_LIST: 'Оберіть файл зі списком користувачів',
   UPLOAD: 'Завантажити',
+  // Achievement system
+  ACHIEVEMENT_SYSTEM: 'Система досягнень',
+  NAME: "Ім'я",
+  DESCRIPTION: 'Опис',
+  ADD_NEW_ACHIEVEMENT_SYSTEM: 'Додати нову систему досягнень',
+  ACHIEVEMENT_SYSTEM_HAS_BEEN_CREATED: 'Система досягнень була створена',
+  ACHIEVEMENT_SYSTEM_HAS_NOT_BEEN_CREATED: 'Система досягнень не була створена',
 
   // validation
   'Must contain one lowercase alphabetical character!':

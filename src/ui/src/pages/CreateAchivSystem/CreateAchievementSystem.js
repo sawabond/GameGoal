@@ -15,6 +15,8 @@ import axios from 'axios';
 import { userContext } from '../../Contexts/userContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
+
 const useStyle = makeStyles((theme) => ({
   padding: {
     padding: theme.spacing(3),
@@ -31,11 +33,13 @@ const initialValues = {
 };
 
 export default function CreateAchievementSystem() {
+  const { t } = useTranslation();
+
   const { user } = useContext(userContext);
   const notifySuccesCreating = () =>
-    toast.success('Achievement system has been created !');
+    toast.success(t('ACHIEVEMENT_SYSTEM_HAS_BEEN_CREATED') + '!');
   const notifyWrongCreating = () =>
-    toast.warning('Achievement system has not been created !');
+    toast.warning(t('ACHIEVEMENT_SYSTEM_HAS_NOT_BEEN_CREATED') + '!');
   const classes = useStyle();
   const onSubmit = (values, { resetForm }) => {
     axios
@@ -74,7 +78,7 @@ export default function CreateAchievementSystem() {
       >
         <Grid item md={6} style={{ margin: '2%' }}>
           <Card className={classes.padding}>
-            <CardHeader title="ADD NEW ACHIEVEMENT SYSTEM"></CardHeader>
+            <CardHeader title={t('ACHIEVEMENT_SYSTEM')}></CardHeader>
             <Formik initialValues={initialValues} onSubmit={onSubmit}>
               {({ values }) => {
                 return (
@@ -83,7 +87,7 @@ export default function CreateAchievementSystem() {
                       <Grid item container spacing={1} justifyContent="center">
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
-                            label="Name"
+                            label={t('NAME')}
                             variant="outlined"
                             fullWidth
                             name="name"
@@ -93,7 +97,7 @@ export default function CreateAchievementSystem() {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
-                            label="Description"
+                            label={t('DESCRIPTION')}
                             variant="outlined"
                             fullWidth
                             name="description"
@@ -110,7 +114,7 @@ export default function CreateAchievementSystem() {
                         type="Submit"
                         className={classes.button}
                       >
-                        ADD NEW ACHIEVEMENTS
+                        {t('ADD_NEW_ACHIEVEMENT_SYSTEM')}
                       </Button>
                     </CardActions>
                   </Form>
