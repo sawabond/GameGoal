@@ -6,7 +6,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 export default function AchievementSystemComponent({ systems }) {
+  const { t } = useTranslation();
+
   return (
     <Card
       sx={{
@@ -14,14 +18,15 @@ export default function AchievementSystemComponent({ systems }) {
         width: '70%',
         margin: '1%',
         padding: '5%',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
       }}
     >
       <CardMedia
         component="img"
         alt="img"
+        image={require('../img/no-image.jpg')}
         height="140"
+        width="30%"
         sx={{
           float: 'left',
           margin: '0 1.5%',
@@ -30,16 +35,35 @@ export default function AchievementSystemComponent({ systems }) {
         }}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography
+          sx={{
+            wordBreak: 'break-all',
+          }}
+          gutterBottom
+          variant="h5"
+          component="div"
+        >
           {systems.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          sx={{
+            wordBreak: 'break-all',
+          }}
+          variant="body2"
+          color="text.secondary"
+        >
           {systems.description}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions
+        sx={{
+          alignItems: 'right',
+        }}
+      >
         <Button size="small">
-          <Link to={`/system-achievements?id=${systems.id}`}>View Details</Link>
+          <Link to={`/system-achievements?id=${systems.id}`}>
+            {t('VIEW_DETAILS')}
+          </Link>
         </Button>
       </CardActions>
     </Card>

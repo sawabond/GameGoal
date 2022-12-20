@@ -11,9 +11,12 @@ import axios from 'axios';
 import { userContext } from '../../Contexts/userContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
 
 export default function Login() {
   const { user, setUser } = useContext(userContext);
+
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -32,16 +35,18 @@ export default function Login() {
         .then((response) => {
           if (response.status === 200) {
             console.log(response.data);
-            toast.success('You are logged in');
+            toast.success(t('YOU_ARE_LOGGED_IN'));
           }
           setUser(() => ({
             ...response.data,
           }));
         })
         .catch(function (error) {
-          const errorJSON = error.toJSON();
-          if (errorJSON.status === 400) {
-            toast.warning('Wrong password or login');
+          if (error.response.status === 400) {
+            toast.warning(t(error.response.data));
+          }
+          if (error.response.status.status > 400) {
+            toast.warning(t('UNKNOWN_ERROR_OCCURRED'));
           }
         });
     },
@@ -71,22 +76,21 @@ export default function Login() {
           >
             <div>
               <Typography level="h4" component="h1">
-                <b>Welcome!</b>
+                <b>{t('WELCOME')}!</b>
               </Typography>
-              <Typography level="body2">Sign in to continue.</Typography>
+              <Typography level="body2">{t('SIGN_IN_TO_CONTINUE')}</Typography>
             </div>
             <form onSubmit={formik.handleSubmit}>
               <TextField
                 name="UserName"
-                label="Username"
+                label={t('USERNAME')}
                 onChange={formik.handleChange}
                 value={formik.values.UserName}
               />
               <TextField
                 name="Password"
                 type="password"
-                placeholder="password"
-                label="Password"
+                label={t('PASSWORD')}
                 onChange={formik.handleChange}
                 value={formik.values.Password}
               />
@@ -96,11 +100,11 @@ export default function Login() {
                 }}
                 type="submit"
               >
-                Log in
+                {t('LOG_IN')}
               </Button>
               <Typography fontSize="sm" sx={{ alignSelf: 'center' }}>
-                Don&apos;t have an account?
-                <Link to={'/registr'}>Sign up</Link>
+                {t('DONT_HAVE_AN_ACCOUNT')}?
+                <Link to={'/registr'}>{' ' + t('SIGN_UP')}</Link>
               </Typography>
             </form>
           </Sheet>

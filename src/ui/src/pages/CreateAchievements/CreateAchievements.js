@@ -14,6 +14,7 @@ import Header from '../../components/Header';
 import axios from 'axios';
 import { userContext } from '../../Contexts/userContext';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const useStyle = makeStyles((theme) => ({
   padding: {
@@ -30,6 +31,8 @@ const initialValues = {
   description: '',
 };
 export default function CreateAchievements() {
+  const { t } = useTranslation();
+
   const { user } = useContext(userContext);
   const classes = useStyle();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -69,7 +72,7 @@ export default function CreateAchievements() {
       >
         <Grid item md={6} style={{ margin: '2%' }}>
           <Card className={classes.padding}>
-            <CardHeader title="Enter achievement information"></CardHeader>
+            <CardHeader title={t('ENTER_ACHIEVEMENT_INFORMATION')}></CardHeader>
             <Formik initialValues={initialValues} onSubmit={onSubmit}>
               {({ values }) => {
                 return (
@@ -78,7 +81,7 @@ export default function CreateAchievements() {
                       <Grid item container spacing={1} justifyContent="center">
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
-                            label="Name"
+                            label={t('NAME')}
                             variant="outlined"
                             fullWidth
                             name="name"
@@ -88,7 +91,7 @@ export default function CreateAchievements() {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
-                            label="Description"
+                            label={t('DESCRIPTION')}
                             variant="outlined"
                             fullWidth
                             name="description"
@@ -105,7 +108,7 @@ export default function CreateAchievements() {
                         type="Submit"
                         className={classes.button}
                       >
-                        ADD NEW ACHIEVEMENT
+                        {t('ADD_NEW_ACHIEVEMENT')}
                       </Button>
                     </CardActions>
                   </Form>

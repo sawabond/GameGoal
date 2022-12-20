@@ -6,8 +6,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './ImportMembers.scss';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import { useTranslation } from 'react-i18next';
 
 export default function ImportMembers() {
+  const { t } = useTranslation();
+
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
 
@@ -28,16 +31,19 @@ export default function ImportMembers() {
       })
       .then((response) => {
         if (response) {
-          toast.success('Users succesfully imported');
+          toast.success(t('USERS_SUCCESSFULLY_IMPORTED'));
         }
         if (response.data.error) {
           console.log(response.data.error);
         }
       })
       .catch(function (error) {
-        const errorJSON = error.toJSON();
-        if (errorJSON.status === 400) {
-          toast.warning('Users already exists');
+        if (error.response.status === 400) {
+          toast.warning(t(error.response.data));
+          return;
+        }
+        if (error.response.status > 400) {
+          toast.warning(t('UNKNOWN_ERROR_OCCURRED'));
         }
       });
   };
@@ -58,7 +64,7 @@ export default function ImportMembers() {
           flexDirection: 'column',
         }}
       >
-        <h1>Import new users in your company:</h1>
+        <h1>{t('IMPORT_NEW_USERS_OF_YOUR_COMPANY')}:</h1>
         <div
           className="upload-choose-file"
           style={{
@@ -76,14 +82,14 @@ export default function ImportMembers() {
               {isFilePicked ? (
                 <p>{selectedFile.name}</p>
               ) : (
-                <p>Choose file with list users</p>
+                <p>{t('CHOOSE_FILE_WITH_USER_LIST')}</p>
               )}
             </div>
           </label>
         </div>
         <div className="upload-button">
           <Button color="primary" onClick={handleSubmission}>
-            Upload
+            {t('UPLOAD')}
           </Button>
         </div>
       </div>
