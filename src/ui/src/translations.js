@@ -35,6 +35,9 @@ let translationsEn = {
   // errors
   YOU_ARE_NOT_ALLOWED_TO_VIEW_THIS_PAGE:
     'You are not allowed to view this page',
+  // Header
+  TOOL_IMPORT_USER: 'Import users',
+  TOOL_ACHIEVEMNT_SYSTEMS: 'Achievement systems',
 };
 
 let translationsUk = {
@@ -81,6 +84,9 @@ let translationsUk = {
 
   // errors
   YOU_ARE_NOT_ALLOWED_TO_VIEW_THIS_PAGE: 'Ви не можете переглядати цю сторінку',
+  //Header
+  TOOL_IMPORT_USER: 'Додати користувачів',
+  TOOL_ACHIEVEMNT_SYSTEMS: 'Системи досягенень',
 };
 
 export { translationsEn, translationsUk };

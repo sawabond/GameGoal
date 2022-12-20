@@ -17,6 +17,7 @@ import useLogout from '../hooks/useLogout';
 import '../components/Header.scss';
 import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { Typography } from '@mui/material';
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -97,25 +98,39 @@ export default function PrimarySearchAppBar() {
       open={isLanguageMenuOpen}
       onClose={handleLanguageMenuClose}
     >
-      <div className="menu-language">
-        <MenuItem
+      <div
+        className="menu-language"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '5%',
+          width: '50px',
+        }}
+      >
+        <div
+          className="en-lang"
           onClick={() => {
             i18n.changeLanguage('en');
             localStorage.setItem('locale', 'en');
             handleLanguageMenuClose();
           }}
+          style={{ cursor: 'pointer' }}
         >
-          EN
-        </MenuItem>
-        <MenuItem
+          <Typography component="div">EN</Typography>
+        </div>
+        <div
+          className="uk-lang"
           onClick={() => {
             i18n.changeLanguage('uk');
             localStorage.setItem('locale', 'uk');
             handleLanguageMenuClose();
           }}
+          style={{ cursor: 'pointer' }}
         >
-          UK
-        </MenuItem>
+          <Typography component="div">UK</Typography>
+        </div>
       </div>
     </Menu>
   );
@@ -126,68 +141,34 @@ export default function PrimarySearchAppBar() {
         position="static"
         style={{ backgroundColor: '#1976d2', color: 'white' }}
       >
-        <Toolbar>
+        <Toolbar style={{ display: 'flex', gap: '1%' }}>
           <Box sx={{ flexGrow: 1 }} />
 
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            {user ? (
-              <Box>
-                <Tooltip title="Import users">
-                  <IconButton size="large">
-                    <Link to={'/import'}>
-                      <GroupAddIcon style={{ color: 'white' }} />
-                    </Link>
-                  </IconButton>
-                </Tooltip>
+          {user ? (
+            <>
+              <Tooltip title={t('TOOL_IMPORT_USER')}>
+                <Link to={'/import'}>
+                  <GroupAddIcon style={{ color: 'white' }} />
+                </Link>
+              </Tooltip>
+              <Tooltip title={t('CREATE_ACHIEVEMENT_SYSTEM')}>
+                <Link to={'/create-system'}>
+                  <NoteAddIcon style={{ color: 'white' }} />
+                </Link>
+              </Tooltip>
+              <Tooltip title={t('TOOL_ACHIEVEMNT_SYSTEMS')}>
+                <Link to={'/system'}>
+                  <EmojiEventsIcon style={{ color: 'white' }} />
+                </Link>
+              </Tooltip>
+            </>
+          ) : (
+            ''
+          )}
 
-                <Tooltip title={t('CREATE_ACHIEVEMENT_SYSTEM')}>
-                  <IconButton size="large">
-                    <Link to={'/create-system'}>
-                      <NoteAddIcon style={{ color: 'white' }} />
-                    </Link>
-                  </IconButton>
-                </Tooltip>
+          <LanguageIcon onClick={handleLanguageMenuOpen} />
 
-                <Tooltip title="Achievement systems">
-                  <IconButton
-                    size="large"
-                    aria-label="show 4 new mails"
-                    color="inherit"
-                  >
-                    <Link to={'/system'}>
-                      <EmojiEventsIcon style={{ color: 'white' }} />
-                    </Link>
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            ) : (
-              ''
-            )}
-
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="language of current user"
-              aria-controls={languageMenuId}
-              aria-haspopup="true"
-              onClick={handleLanguageMenuOpen}
-              color="inherit"
-            >
-              <LanguageIcon />
-            </IconButton>
-
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={userMenuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
+          <AccountCircle onClick={handleProfileMenuOpen} />
         </Toolbar>
       </AppBar>
       {renderLanguageMenu}
