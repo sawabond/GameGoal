@@ -10,6 +10,8 @@ let translationsEn = {
   DONT_HAVE_AN_ACCOUNT: "Don't have an account",
   SIGN_UP: 'Sign up',
   YOU_ARE_LOGGED_IN: 'You are logged in',
+  LOGOUT: 'Logout',
+  REGISTRATION: 'Registration',
   UNKNOWN_ERROR_OCCURRED: 'An unknown error has occurred',
   // Import users
   USERS_SUCCESSFULLY_IMPORTED: 'Users have been successfully imported',
@@ -25,6 +27,14 @@ let translationsEn = {
     'The achievement system has been created',
   ACHIEVEMENT_SYSTEM_HAS_NOT_BEEN_CREATED:
     'The achievement system has not been created',
+  VIEW_DETAILS: 'View details',
+  // Achievements
+  ADD_NEW_ACHIEVEMENT: 'Add new achievement',
+  ENTER_ACHIEVEMENT_INFORMATION: 'Enter achievement information',
+
+  // errors
+  YOU_ARE_NOT_ALLOWED_TO_VIEW_THIS_PAGE:
+    'You are not allowed to view this page',
 };
 
 let translationsUk = {
@@ -39,7 +49,10 @@ let translationsUk = {
   DONT_HAVE_AN_ACCOUNT: 'Не маєте акаунта',
   SIGN_UP: 'Зареєструватися',
   YOU_ARE_LOGGED_IN: 'Ви увійшли',
+  LOGOUT: 'Вийти',
+  REGISTRATION: 'Реєстрація',
   UNKNOWN_ERROR_OCCURRED: 'Сталася невідома помилка',
+  // Import users
   USERS_SUCCESSFULLY_IMPORTED: 'Користувачі успішно імпортовані',
   IMPORT_NEW_USERS_OF_YOUR_COMPANY:
     'Імпортуйте нових користувачів Вашої компанії',
@@ -52,6 +65,10 @@ let translationsUk = {
   ADD_NEW_ACHIEVEMENT_SYSTEM: 'Додати нову систему досягнень',
   ACHIEVEMENT_SYSTEM_HAS_BEEN_CREATED: 'Система досягнень була створена',
   ACHIEVEMENT_SYSTEM_HAS_NOT_BEEN_CREATED: 'Система досягнень не була створена',
+  VIEW_DETAILS: 'Переглянути деталі',
+  // Achievement
+  ADD_NEW_ACHIEVEMENT: 'Додати нове досягнення',
+  ENTER_ACHIEVEMENT_INFORMATION: 'Додайте інформацію про досягнення',
 
   // validation
   'Must contain one lowercase alphabetical character!':
@@ -61,6 +78,9 @@ let translationsUk = {
   'Must contain one numeric character!': 'Повинен мати одну цифру!',
   'Must contain 6 characters!': 'Повинен бути довжиною 6 символів!',
   'Required!': "Обов'язковий!",
+
+  // errors
+  YOU_ARE_NOT_ALLOWED_TO_VIEW_THIS_PAGE: 'Ви не можете переглядати цю сторінку',
 };
 
 export { translationsEn, translationsUk };

@@ -24,7 +24,7 @@ public sealed class GetAchievementSystemByIdQueryHandler
         GetAchievementSystemByIdQuery request, 
         CancellationToken cancellationToken)
     {
-        var achievementSystem = _achievementSystemRepository.GetAsync(request.Id);
+        var achievementSystem = await _achievementSystemRepository.GetAsync(request.Id);
 
         if (achievementSystem is null)
         {

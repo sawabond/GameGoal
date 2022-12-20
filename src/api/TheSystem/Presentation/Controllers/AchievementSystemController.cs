@@ -1,4 +1,5 @@
 ﻿using Application.AchievementSystems.Commands.CreateAchievementSystem;
+using Application.AchievementSystems.Queries.GetAchievementSystemById;
 using Application.AchievementSystems.Queries.GetAchievementSystemsByUserId;
 using Domain;
 using MediatR;
@@ -19,7 +20,13 @@ public sealed class AchievementSystemController : AuthorizedApiController
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetAchievementSystemById(string id)
     {
-        return Ok(string.Empty);
+        var query = new GetAchievementSystemByIdQuery(id);
+
+        var result = await _sender.Send(query);
+
+        return result.IsSuccess
+            ? Ok(result.Value)
+            : BadRequest(result.Errors);
     }
 
     [HttpGet]

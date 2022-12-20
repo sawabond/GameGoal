@@ -1,6 +1,10 @@
 import React from 'react';
 import Header from '../../components/Header';
+import { useTranslation } from 'react-i18next';
+
 export default function Error() {
+  const { t } = useTranslation();
+
   return (
     <>
       <Header />
@@ -15,7 +19,7 @@ export default function Error() {
           height: '91vh',
         }}
       >
-        <h1>403 | You are not allowed to view this page</h1>
+        <h1>403 | {t('YOU_ARE_NOT_ALLOWED_TO_VIEW_THIS_PAGE')}</h1>
       </div>
     </>
   );

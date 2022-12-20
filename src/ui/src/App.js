@@ -22,7 +22,7 @@ i18n.use(initReactI18next).init({
     en: { translation: translationsEn },
     uk: { translation: translationsUk },
   },
-  lng: 'en',
+  lng: localStorage.getItem('locale') || 'en',
   fallbackLng: 'en',
   interpolation: { escapeValue: false },
 });

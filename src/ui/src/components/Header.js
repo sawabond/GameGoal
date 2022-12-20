@@ -65,15 +65,15 @@ export default function PrimarySearchAppBar() {
     >
       {user && user ? (
         <div className="menu-login">
-          <MenuItem onClick={logOut}>Logout</MenuItem>
+          <MenuItem onClick={logOut}>{t('LOGOUT')}</MenuItem>
         </div>
       ) : (
         <div className="menu-unlogin">
           <Link to={'/registr'}>
-            <MenuItem onClick={handleMenuClose}>Registration</MenuItem>
+            <MenuItem onClick={handleMenuClose}>{t('REGISTRATION')}</MenuItem>
           </Link>
           <Link to={'/login'}>
-            <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+            <MenuItem onClick={handleMenuClose}>{t('LOG_IN')}</MenuItem>
           </Link>
         </div>
       )}
@@ -101,6 +101,7 @@ export default function PrimarySearchAppBar() {
         <MenuItem
           onClick={() => {
             i18n.changeLanguage('en');
+            localStorage.setItem('locale', 'en');
             handleLanguageMenuClose();
           }}
         >
@@ -109,6 +110,7 @@ export default function PrimarySearchAppBar() {
         <MenuItem
           onClick={() => {
             i18n.changeLanguage('uk');
+            localStorage.setItem('locale', 'uk');
             handleLanguageMenuClose();
           }}
         >
