@@ -14,6 +14,8 @@ import { TextField } from 'formik-material-ui';
 import axios from 'axios';
 import { userContext } from '../Contexts/userContext';
 import { Navigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
+
 const useStyle = makeStyles((theme) => ({
   padding: {
     padding: theme.spacing(3),
@@ -33,23 +35,27 @@ const uppercaseRegEx = /(?=.*[A-Z])/;
 const numericRegEx = /(?=.*[0-9])/;
 const lengthRegEx = /(?=.{6,})/;
 
-let validationSchema = Yup.object().shape({
-  password: Yup.string()
-    .matches(
-      lowercaseRegEx,
-      'Must contain one lowercase alphabetical character!'
-    )
-    .matches(
-      uppercaseRegEx,
-      'Must contain one uppercase alphabetical character!'
-    )
-    .matches(numericRegEx, 'Must contain one numeric character!')
-    .matches(lengthRegEx, 'Must contain 6 characters!')
-    .required('Required!'),
-});
 export default function FormRegistration() {
+  const { t } = useTranslation();
+
+  let validationSchema = Yup.object().shape({
+    password: Yup.string()
+      .matches(
+        lowercaseRegEx,
+        t('Must contain one lowercase alphabetical character!')
+      )
+      .matches(
+        uppercaseRegEx,
+        t('Must contain one uppercase alphabetical character!')
+      )
+      .matches(numericRegEx, t('Must contain one numeric character!'))
+      .matches(lengthRegEx, t('Must contain 6 characters!'))
+      .required(t('Required!')),
+  });
+
   const { user, setUser } = useContext(userContext);
   const classes = useStyle();
+
   const onSubmit = (values, { resetForm }) => {
     axios
       .post('https://localhost:7184/api/User/register-company', {
@@ -83,7 +89,7 @@ export default function FormRegistration() {
       >
         <Grid item md={6} style={{ margin: '2%' }}>
           <Card className={classes.padding}>
-            <CardHeader title="REGISTER FORM"></CardHeader>
+            <CardHeader title={t('REGISTER_FORM')}></CardHeader>
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -96,7 +102,7 @@ export default function FormRegistration() {
                       <Grid item container spacing={1} justifyContent="center">
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
-                            label="UserName"
+                            label={t('USERNAME')}
                             variant="outlined"
                             fullWidth
                             name="username"
@@ -106,7 +112,7 @@ export default function FormRegistration() {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
-                            label="Password"
+                            label={t('PASSWORD')}
                             variant="outlined"
                             fullWidth
                             name="password"
@@ -124,7 +130,7 @@ export default function FormRegistration() {
                         type="Submit"
                         className={classes.button}
                       >
-                        REGISTER
+                        {t('REGISTER')}
                       </Button>
                     </CardActions>
                   </Form>

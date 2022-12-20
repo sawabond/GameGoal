@@ -6,50 +6,55 @@ import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import LanguageIcon from '@mui/icons-material/Language';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { userContext } from '../Contexts/userContext';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import Tooltip from '@mui/material/Tooltip';
 import useLogout from '../hooks/useLogout';
 import '../components/Header.scss';
+import i18n from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const { user } = useContext(userContext);
+  const [languageAnchorEl, setLanguageAnchorEl] = useState(null);
+
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isLanguageMenuOpen = Boolean(languageAnchorEl);
+
+  const { user } = useContext(userContext);
   const logOut = useLogout();
+
+  const { t } = useTranslation();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
+  const handleLanguageMenuOpen = (event) => {
+    setLanguageAnchorEl(event.currentTarget);
   };
 
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
+  const handleLanguageMenuClose = () => {
+    setLanguageAnchorEl(null);
+  };
+
+  const userMenuId = 'primary-search-account-menu';
+  const renderAccountMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',
       }}
-      id={menuId}
+      id={userMenuId}
       keepMounted
       transformOrigin={{
         vertical: 'top',
@@ -75,37 +80,41 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
+  const languageMenuId = 'primary-search-language-menu';
+  const renderLanguageMenu = (
     <Menu
-      anchorEl={mobileMoreAnchorEl}
+      anchorEl={languageAnchorEl}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',
       }}
-      id={mobileMenuId}
+      id={languageMenuId}
       keepMounted
       transformOrigin={{
         vertical: 'top',
         horizontal: 'right',
       }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
+      open={isLanguageMenuOpen}
+      onClose={handleLanguageMenuClose}
     >
-      {user && user ? (
-        <div className="menu-login">
-          <MenuItem onClick={logOut}>Logout</MenuItem>
-        </div>
-      ) : (
-        <div className="menu-unlogin">
-          <Link to={'/registr'}>
-            <MenuItem onClick={handleMenuClose}>Registration</MenuItem>
-          </Link>
-          <Link to={'/login'}>
-            <MenuItem onClick={handleMenuClose}>Login</MenuItem>
-          </Link>
-        </div>
-      )}
+      <div className="menu-language">
+        <MenuItem
+          onClick={() => {
+            i18n.changeLanguage('en');
+            handleLanguageMenuClose();
+          }}
+        >
+          EN
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            i18n.changeLanguage('uk');
+            handleLanguageMenuClose();
+          }}
+        >
+          UK
+        </MenuItem>
+      </div>
     </Menu>
   );
 
@@ -129,7 +138,7 @@ export default function PrimarySearchAppBar() {
                   </IconButton>
                 </Tooltip>
 
-                <Tooltip title="Create achievement system">
+                <Tooltip title={t('CREATE_ACHIEVEMENT_SYSTEM')}>
                   <IconButton size="large">
                     <Link to={'/create-system'}>
                       <NoteAddIcon style={{ color: 'white' }} />
@@ -156,8 +165,20 @@ export default function PrimarySearchAppBar() {
             <IconButton
               size="large"
               edge="end"
+              aria-label="language of current user"
+              aria-controls={languageMenuId}
+              aria-haspopup="true"
+              onClick={handleLanguageMenuOpen}
+              color="inherit"
+            >
+              <LanguageIcon />
+            </IconButton>
+
+            <IconButton
+              size="large"
+              edge="end"
               aria-label="account of current user"
-              aria-controls={menuId}
+              aria-controls={userMenuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
@@ -165,22 +186,10 @@ export default function PrimarySearchAppBar() {
               <AccountCircle />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
+      {renderLanguageMenu}
+      {renderAccountMenu}
     </Box>
   );
 }
