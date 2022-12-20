@@ -18,7 +18,7 @@ export default function AchievementComponent({ achievement }) {
       <CardActionArea>
         <CardMedia
           component="img"
-          image={require('../img/smoke.jpg')}
+          image={require('../img/no-image.jpg')}
           height="140"
           alt="img"
         />
