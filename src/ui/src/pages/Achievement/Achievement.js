@@ -46,10 +46,8 @@ export default function Achievement() {
         className="achiv-systems"
         style={{
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
+          justifyContent: 'flex-start',
+          flexWrap: 'wrap',
         }}
       >
         {isLoading &&

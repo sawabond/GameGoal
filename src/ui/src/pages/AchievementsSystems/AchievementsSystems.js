@@ -34,7 +34,6 @@ export default function AchievementSystems() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '100%',
         }}
       >
         {data ? (

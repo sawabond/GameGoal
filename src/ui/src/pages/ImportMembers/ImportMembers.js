@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './ImportMembers.scss';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useTranslation } from 'react-i18next';
+import { Typography } from '@mui/material';
 
 export default function ImportMembers() {
   const { t } = useTranslation();
@@ -64,7 +65,9 @@ export default function ImportMembers() {
           flexDirection: 'column',
         }}
       >
-        <h1>{t('IMPORT_NEW_USERS_OF_YOUR_COMPANY')}:</h1>
+        <Typography variant="h4">
+          {t('IMPORT_NEW_USERS_OF_YOUR_COMPANY')}:
+        </Typography>
         <div
           className="upload-choose-file"
           style={{
@@ -76,13 +79,20 @@ export default function ImportMembers() {
             <input type="file" multiple onChange={changeHandler} />
             <div
               className="div"
-              style={{ display: 'flex', alignItems: 'center' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                textAlign: 'center',
+                justifyContent: 'center',
+              }}
             >
               <FileUploadIcon />
               {isFilePicked ? (
                 <p>{selectedFile.name}</p>
               ) : (
-                <p>{t('CHOOSE_FILE_WITH_USER_LIST')}</p>
+                <Typography variant="body2">
+                  {t('CHOOSE_FILE_WITH_USER_LIST')}
+                </Typography>
               )}
             </div>
           </label>

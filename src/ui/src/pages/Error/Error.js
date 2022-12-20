@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header';
 import { useTranslation } from 'react-i18next';
-
+import { Typography } from '@mui/material';
 export default function Error() {
   const { t } = useTranslation();
 
@@ -16,10 +16,12 @@ export default function Error() {
           justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
-          height: '91vh',
+          height: '100%',
         }}
       >
-        <h1>403 | {t('YOU_ARE_NOT_ALLOWED_TO_VIEW_THIS_PAGE')}</h1>
+        <Typography variant="h4">
+          403 | {t('YOU_ARE_NOT_ALLOWED_TO_VIEW_THIS_PAGE')}
+        </Typography>
       </div>
     </>
   );
