@@ -1,6 +1,6 @@
 ﻿namespace Domain.Shared;
 
-public sealed class Result<T>
+public class Result<T>
 {
     public T? Value { get; set; }
 
@@ -40,7 +40,7 @@ public sealed class Result<T>
     }
 }
 
-public sealed class Result
+public class Result
 {
     public bool IsSuccess { get; set; }
 
